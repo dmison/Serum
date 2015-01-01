@@ -1,4 +1,5 @@
-var git_url = '';
+var git_repo = '';
+var git_user = '';
 var drafts_dir = '';
 var token = '';
 
@@ -16,15 +17,18 @@ var filename='';
 
 $( document ).ready(function() {
   $('#postbutton').click(postArticle);
+  $('#optionslink').click(function(){
+    window.open(chrome.extension.getURL("options.html"));
+  });
 });
 
 var postArticle = function(){
 
   var content = window.btoa(unescape(encodeURIComponent($('#quote').val())))
   filename = document.getElementById('filename').value;
-  
+
   var base = 'https://api.github.com';
-  var url = base+'/repos/dmison/dmison.github.com/contents/'+drafts_dir+'/'+filename;
+  var url = base+'/repos/'+git_user+'/'+git_repo+'/contents/'+drafts_dir+'/'+filename;
 
   var request_object = {
     "message": "adding draft: "+title,
@@ -97,9 +101,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 var loadSettings = function(done) {
-  chrome.storage.sync.get(["git_url", "drafts_dir", "token"],
+  chrome.storage.sync.get(["git_repo", "git_user", "drafts_dir", "token"],
     function(item) {
-      git_url = item.git_url;
+      git_repo = item.git_repo;
+      git_user = item.git_user;
       drafts_dir = item.drafts_dir;
       token = item.token;
       done();

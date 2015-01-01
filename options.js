@@ -1,11 +1,13 @@
 // Saves options to chrome.storage
 function save_options() {
-  var git_url = document.getElementById('git_url').value;
+  var git_user = document.getElementById('git_user').value;
+  var git_repo = document.getElementById('git_repo').value;
   var drafts_dir = document.getElementById('drafts_dir').value;
   var token = document.getElementById('token').value;
 
   chrome.storage.sync.set({
-    git_url: git_url,
+    git_user: git_user,
+    git_repo: git_repo,
     drafts_dir: drafts_dir,
     token: token
   }, function() {
@@ -24,12 +26,14 @@ function restore_options() {
   // Use default value color = 'red' and likesColor = true.
   chrome.storage.sync.get(
     [
-      "git_url",
+      "git_user",
+      "git_repo",
       "drafts_dir",
       "token"
     ],
     function(item) {
-      document.getElementById('git_url').value = item.git_url;
+      document.getElementById('git_user').value = item.git_user;
+      document.getElementById('git_repo').value = item.git_repo;
       document.getElementById('drafts_dir').value = item.drafts_dir;
       document.getElementById('token').value = item.token;
     });
