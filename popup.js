@@ -2,13 +2,17 @@ var git_url = '';
 var drafts_dir = '';
 var token = '';
 
-var today = new Date();
-var date = today.getFullYear()+'-'+today.getMonth()+'-'+today.getDate()+' '+today.getHours()+':'+today.getMinutes();
+var today = new moment();
 
-var post = {
-  title: '',
-  body: ''
-}
+var day = today.format('YYYY-MM-DD');
+var date = today.format('YYYY-MM-DD HH:mm');
+
+var title = '';
+var quote = '';
+var url = '';
+var filename='';
+
+
 
 $( document ).ready(function() {
   $('#postbutton').click(postArticle);
@@ -16,44 +20,34 @@ $( document ).ready(function() {
 
 var postArticle = function(){
 
-  //var content = window.btoa($('#quote').val());
   var content = window.btoa(unescape(encodeURIComponent($('#quote').val())))
-
-
+  filename = document.getElementById('filename').value;
+  
   var base = 'https://api.github.com';
-  var url = base+'/repos/dmison/dmison.github.com/contents/'+drafts_dir+'/testfile.markdown';
+  var url = base+'/repos/dmison/dmison.github.com/contents/'+drafts_dir+'/'+filename;
 
   var request_object = {
-    "message": "adding testfile",
+    "message": "adding draft: "+title,
     "content": content
   }
   var request_string = JSON.stringify(request_object);
 
   url = url+'?access_token='+token
-  console.log(url);
 
   $.ajax({
     type: 'PUT',
     url: url,
     data: request_string,
     dataType: 'json',
-    // username: token,
-    // password: 'x-oauth-basic',
     contentType: 'application/json',
     success: function( data ) {
       $( '#result' ).html( data );
     }
   });
 
-  // $.post( url, request_string, function( data ) {
-  //   $( '#result' ).html( data );
-  // });
-
-
 }
 
-var formatPost = function(quote, title, url){
-
+var formatPost = function(){
 
   body = quote.split('\n').map(function(line){
     return '> '+line;
@@ -64,26 +58,33 @@ var formatPost = function(quote, title, url){
   return body;
 }
 
+// once the popup had fully loaded get the selection from the page and populate the editor box
 document.addEventListener('DOMContentLoaded', function() {
-  console.log("go");
+
   loadSettings(function() {
 
     chrome.tabs.query({
       active: true,
       currentWindow: true
     }, function(tabs) {
-      console.log('sending message');
+
       chrome.tabs.sendMessage(tabs[0].id, {
         method: 'getSelection'
       }, function(response) {
-        var quote = response.quote;
-        var title = response.title;
-        var url = response.url;
+        quote = response.quote;
+        title = response.title;
+        url = response.url;
 
-        var body = formatPost(quote, title, url);
+        var body = formatPost();
+
+        filename = day+' '+title;
+        filename = filename.replace(/\W+/g, '-')+'.markdown'
+
 
         var body_el = document.getElementById('quote');
+        var filename_el = document.getElementById('filename');
 
+        filename_el.value = filename;
         body_el.value = body;
 
       });
