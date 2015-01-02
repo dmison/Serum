@@ -5,6 +5,9 @@
   <title>Jekyll Poster Options</title>
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="vendor/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+
+  <script src="vendor/jquery/jquery-2.1.3.min.js"></script>
+  
   <style>
     body {
       margin-top: 35px;
@@ -17,7 +20,7 @@
   <div class="container">
 
     <div class="media">
-      <span href="#"  class="media-left">
+      <span href="#" class="media-left">
         <img src="test_tube.png" width="32">
       </span>
       <div class="media-body">
@@ -29,50 +32,50 @@
 
       <div class="panel-body">
 
-        <form class="form-horizontal">
+        <form class="form-horizontal" id="optionsForm">
 
-          <div class="form-group">
-            <label for="" class="col-sm-3 control-label">Github Username</label>
+          <div class="form-group" id="git_user_grp">
+            <label for="git_user" class="col-sm-3 control-label">Github Username</label>
             <div class="col-sm-6">
               <input type="text" id="git_user" class="form-control">
             </div>
           </div>
-          <div class="form-group">
-            <label for="" class="col-sm-3 control-label">Github Repo</label>
+          <div class="form-group" id="git_repo_grp">
+            <label for="git_repo" class="col-sm-3 control-label">Github Repo</label>
             <div class="col-sm-6">
               <input type="text" id="git_repo" class="form-control">
             </div>
           </div>
-          <div class="form-group">
-            <label for="" class="col-sm-3 control-label">Drafts Directory</label>
+          <div class="form-group" id="drafts_dir_grp">
+            <label for="drafts_dir" class="col-sm-3 control-label">Drafts Directory</label>
             <div class="col-sm-6">
               <input type="text" id="drafts_dir" class="form-control">
             </div>
           </div>
-          <div class="form-group">
-            <label for="" class="col-sm-3 control-label">Access Token</label>
+          <div class="form-group" id="token_grp">
+            <label for="token" class="col-sm-3 control-label">Access Token</label>
             <div class="col-sm-6">
               <input type="text" id="token" class="form-control">
-              <div><a href="https://help.github.com/articles/creating-an-access-token-for-command-line-use/"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> How to create a Github access token</a></div>
+              <div><a href="https://help.github.com/articles/creating-an-access-token-for-command-line-use/">How to create a Github access token</a>
+              </div>
             </div>
           </div>
           <div class="form-group">
             <div class="col-sm-6 col-sm-offset-3">
-              <button id="save" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> save</button>
+              <button id="saveBtn" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> save</button>
             </div>
           </div>
 
-
-
           <div id="status"></div>
 
-
         </form>
+
       </div>
     </div>
 
   </div>
-  <script src="options.js"></script>
+
 </body>
+<script src="options.js"></script>
 
 </html>
