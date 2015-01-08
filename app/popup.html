@@ -5,6 +5,7 @@
     <title>Getting Started Extension's Popup</title>
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="vendor/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="vendor/font-awesome-4.2.0/css/font-awesome.min.css">
     <style>
       body {
         min-width: 357px;
@@ -23,9 +24,11 @@
       .statusSuccess {
         display: none;
       }
-
       #closeButton {
-        display:hidden;
+        display: none;
+      }
+      #progress {
+        display: none;
       }
     </style>
 
@@ -47,31 +50,28 @@
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-xs-12">
 
+    <div class="row">
+      <div class="col-xs-2">
+        <button id="postButton" class="btn btn-info btn-sm">
+          <span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Post
+        </button>
+        <button id="closeButton" class="btn btn-success btn-sm">
+          <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Close
+        </button>
+
+      </div>
+      <div class="col-xs-10">
+        <div id="progress" style="padding:0px; margin-top:5px;">
+          <span><i class="fa fa-circle-o-notch fa-spin"></i> Posting ...</span>
+        </div>
         <div id="error" class="alert alert-danger status statusError" role="alert">
           <b>ERROR: <span id="status"></span> (<span id="code"></span>)</b>
           <span id="errorMessage"></span>
         </div>
         <div id="success" class="alert alert-success status statusSuccess" role="alert">
-          <span id="successMessage"></span>
+          <span id="successMessage">Post committed successfully</span>
         </div>
-
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-xs-3">
-        <button id="postbutton" class="btn btn-success btn-sm">
-          <span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Post
-        </button>
-        <button id="closebutton" class="btn btn-success btn-sm">
-          <span class="glyphicon glyphicon-cancel" aria-hidden="true"></span> Close
-        </button>
-      </div>
-      <div class="col-xs-3 col-xs-offset-6">
-        <button id="optionslink" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Options</button>
       </div>
     </div>
   </body>
