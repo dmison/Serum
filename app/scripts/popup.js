@@ -83,6 +83,9 @@ $(document).ready(function() {
   $('#closeButton').click(function() {
     window.close();
   });
+  $('#optionslink').click(function() {
+    window.open(chrome.extension.getURL('options.html'));
+  });
 
 });
 
@@ -123,37 +126,50 @@ var loadSettings = function(done) {
     });
 };
 
+var createPostFromPage = function() {
+  chrome.tabs.query({
+    active: true,
+    currentWindow: true
+  }, function(tabs) {
+
+    chrome.tabs.sendMessage(tabs[0].id, {
+      method: 'getSelection'
+    }, function(response) {
+      quote = response.quote;
+      title = response.title;
+      url = response.url;
+
+      var body = formatPost();
+
+      filename = day + ' ' + title;
+      filename = filename.replace(/\W+/g, '-') + '.markdown';
+
+
+      var bodyElement = document.getElementById('quote');
+      var filenameElement = document.getElementById('filename');
+
+      filenameElement.value = filename;
+      bodyElement.value = body;
+
+    });
+  });
+};
+
+
 // once the popup had fully loaded get the selection from the page and populate the editor box
 document.addEventListener('DOMContentLoaded', function() {
 
   loadSettings(function() {
+    if ( gitRepo === '' || gitUser  === '' || DraftsDir  === '' || token  === '' ) {
+      $('#editor').hide();
+      $('#warning').show();
+    } else
+    {
+      $('#editor').show();
+      $('#warning').hide();
+      createPostFromPage();
+    }
 
-    chrome.tabs.query({
-      active: true,
-      currentWindow: true
-    }, function(tabs) {
-
-      chrome.tabs.sendMessage(tabs[0].id, {
-        method: 'getSelection'
-      }, function(response) {
-        quote = response.quote;
-        title = response.title;
-        url = response.url;
-
-        var body = formatPost();
-
-        filename = day + ' ' + title;
-        filename = filename.replace(/\W+/g, '-') + '.markdown';
-
-
-        var bodyElement = document.getElementById('quote');
-        var filenameElement = document.getElementById('filename');
-
-        filenameElement.value = filename;
-        bodyElement.value = body;
-
-      });
-    });
 
     // == //
   });
