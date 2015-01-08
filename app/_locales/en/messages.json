@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Jekyll Post",
+    "description": "The name of the application"
+  },
+  "appDescription": {
+    "message": "Easy link blogging to a Github-hosted Jekyll blog",
+    "description": "The description of the application"
+  }
+}
