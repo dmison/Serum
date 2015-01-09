@@ -3,7 +3,10 @@
 'use strict';
 
 // Saves options to chrome.storage
-var saveOptions = function () {
+var saveOptions = function() {
+  $('#saving').show();
+  $('#saved').hide();
+
   var gitUser = $('#gitUser').val();
   var gitRepo = $('#gitRepo').val();
   var DraftsDir = $('#DraftsDir').val();
@@ -16,11 +19,14 @@ var saveOptions = function () {
     token: token
   }, function() {
     // Update status to let user know options were saved.
-    var status = document.getElementById('status');
-    status.textContent = 'Options saved.';
-    setTimeout(function() {
-      status.textContent = '';
-    }, 750);
+    window.setTimeout(function() {
+      $('#saving').hide();
+      $('#saved').show();
+      window.setTimeout(function() {
+        $('#saved').hide();
+      }, 750);
+
+    }, 500);
   });
 };
 
@@ -34,30 +40,31 @@ var validateField = function(field, group) {
 
 // Restores select box and checkbox state using the preferences
 // stored in chrome.storage.
-var restoreOptions = function () {
+var restoreOptions = function() {
   // Use default value color = 'red' and likesColor = true.
   chrome.storage.sync.get({
-    gitUser: '',
-    gitRepo: '',
-    DraftsDir: '_drafts',
-    token: ''
-  },
-  function(item) {
-    document.getElementById('gitUser').value = item.gitUser;
-    document.getElementById('gitRepo').value = item.gitRepo;
-    document.getElementById('DraftsDir').value = item.DraftsDir;
-    document.getElementById('token').value = item.token;
+      gitUser: '',
+      gitRepo: '',
+      DraftsDir: '_drafts',
+      token: ''
+    },
+    function(item) {
+      $('#gitUser').val(item.gitUser);
+      $('#gitRepo').val(item.gitRepo);
+      $('#DraftsDir').val(item.DraftsDir);
+      $('#token').val(item.token);
 
-    validateField($('#gitUser'), $('#gitUser_grp'));
-    validateField($('#gitRepo'), $('#gitRepo_grp'));
-    validateField($('#DraftsDir'), $('#DraftsDir_grp'));
-    validateField($('#token'), $('#token_grp'));
+      validateField($('#gitUser'), $('#gitUser_grp'));
+      validateField($('#gitRepo'), $('#gitRepo_grp'));
+      validateField($('#DraftsDir'), $('#DraftsDir_grp'));
+      validateField($('#token'), $('#token_grp'));
 
-  });
+    });
 };
 
 
 $(document).ready(function() {
+  // $('#status').hide();
   restoreOptions();
 
   $('#gitUser').change(function() {
