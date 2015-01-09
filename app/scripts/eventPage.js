@@ -1,9 +1,9 @@
 /*global sendServiceRequest:false */
 'use strict';
 
-// chrome.runtime.onInstalled.addListener(function (details) {
-//   console.log('previousVersion', details.previousVersion);
-// });
+chrome.runtime.onInstalled.addListener(function () {
+  chrome.tabs.create({url: 'options.html'});
+});
 
 chrome.browserAction.onClicked.addListener(function(tab) {
   console.log('sending message');
@@ -14,6 +14,3 @@ chrome.browserAction.onClicked.addListener(function(tab) {
     sendServiceRequest(response.data);
   });
 });
-
-
-// chrome.browserAction.setBadgeText({text: '\'So'});
