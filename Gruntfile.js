@@ -281,7 +281,7 @@ module.exports = function (grunt) {
         options: {
           archive: function() {
             var manifest = grunt.file.readJSON('app/manifest.json');
-            return 'package/Jekyll Post-' + manifest.version + '.zip';
+            return 'package/Serum-' + manifest.version + '.zip';
           }
         },
         files: [{
