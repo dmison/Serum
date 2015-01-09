@@ -10,6 +10,10 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
     });
   }
   else {
-    sendResponse({}); // snub them.
+    sendResponse({
+      quote: '',
+      title: '',
+      url: ''
+    }); // snub them.
   }
 });
