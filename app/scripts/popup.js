@@ -116,7 +116,12 @@ var formatPost = function() {
 };
 
 var loadSettings = function(done) {
-  chrome.storage.sync.get(['gitRepo', 'gitUser', 'DraftsDir', 'token'],
+  chrome.storage.sync.get({
+      gitUser: '',
+      gitRepo: '',
+      DraftsDir: '_drafts',
+      token: ''
+    },
     function(item) {
       gitRepo = item.gitRepo;
       gitUser = item.gitUser;
@@ -160,11 +165,10 @@ var createPostFromPage = function() {
 document.addEventListener('DOMContentLoaded', function() {
 
   loadSettings(function() {
-    if ( gitRepo === '' || gitUser  === '' || DraftsDir  === '' || token  === '' ) {
+    if (gitRepo === '' || gitUser === '' || DraftsDir === '' || token === '') {
       $('#editor').hide();
       $('#warning').show();
-    } else
-    {
+    } else {
       $('#editor').show();
       $('#warning').hide();
       createPostFromPage();
