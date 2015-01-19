@@ -179,3 +179,16 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
 });
+
+$(document).ready(function() {
+
+  var quoteArea = $('#quote').get(0);
+  var myCodeMirror = CodeMirror.fromTextArea(quoteArea, {
+    mode: 'yamlFrontMatter',
+    lineNumbers: true,
+    theme: 'neo',
+    lineWrapping: true,
+    autoFocus: true
+  });
+
+});
