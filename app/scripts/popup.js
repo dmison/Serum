@@ -19,6 +19,8 @@ var quote = '';
 var url = '';
 var filename = '';
 
+var postEditor;
+
 var postArticle = function() {
 
   //check config values first, if any are missing then abort and show error message
@@ -145,20 +147,20 @@ var createPostFromPage = function() {
       url = response.url;
 
       var body = formatPost();
+      postEditor.setValue(body);
 
       filename = day + ' ' + title;
       filename = filename.replace(/\W+/g, '-') + '.markdown';
-
-
-      var bodyElement = document.getElementById('quote');
+      //var bodyElement = document.getElementById('quote');
       var filenameElement = document.getElementById('filename');
-
       filenameElement.value = filename;
-      bodyElement.value = body;
+      //bodyElement.value = body;
+
 
     });
   });
 };
+
 
 
 // once the popup had fully loaded get the selection from the page and populate the editor box
@@ -174,8 +176,6 @@ document.addEventListener('DOMContentLoaded', function() {
       createPostFromPage();
     }
 
-
-    // == //
   });
 
 });
@@ -183,12 +183,14 @@ document.addEventListener('DOMContentLoaded', function() {
 $(document).ready(function() {
 
   var quoteArea = $('#quote').get(0);
-  var myCodeMirror = CodeMirror.fromTextArea(quoteArea, {
+  postEditor = CodeMirror.fromTextArea(quoteArea, {
     mode: 'yamlFrontMatter',
     lineNumbers: true,
     theme: 'neo',
     lineWrapping: true,
     autoFocus: true
   });
+
+
 
 });
