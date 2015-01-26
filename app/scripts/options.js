@@ -2,6 +2,8 @@
 
 'use strict';
 
+var templateEditor;
+
 // Saves options to chrome.storage
 var saveOptions = function() {
   $('#saving').show();
@@ -11,12 +13,14 @@ var saveOptions = function() {
   var gitRepo = $('#gitRepo').val();
   var DraftsDir = $('#DraftsDir').val();
   var token = $('#token').val();
+  var template = templateEditor.getValue();
 
   chrome.storage.sync.set({
     gitUser: gitUser,
     gitRepo: gitRepo,
     DraftsDir: DraftsDir,
-    token: token
+    token: token,
+    template: template
   }, function() {
     // Update status to let user know options were saved.
     window.setTimeout(function() {
@@ -46,13 +50,15 @@ var restoreOptions = function() {
       gitUser: '',
       gitRepo: '',
       DraftsDir: '_drafts',
-      token: ''
+      token: '',
+      template: default_template
     },
     function(item) {
       $('#gitUser').val(item.gitUser);
       $('#gitRepo').val(item.gitRepo);
       $('#DraftsDir').val(item.DraftsDir);
       $('#token').val(item.token);
+      templateEditor.setValue(item.template);
 
       validateField($('#gitUser'), $('#gitUser_grp'));
       validateField($('#gitRepo'), $('#gitRepo_grp'));
@@ -62,9 +68,22 @@ var restoreOptions = function() {
     });
 };
 
+var restoreDefaultTemplate = function(){
+  templateEditor.setValue(default_template);
+}
 
 $(document).ready(function() {
-  // $('#status').hide();
+
+  var templateArea = $('#template').get(0);
+  templateEditor = CodeMirror.fromTextArea(templateArea, {
+    mode: 'gfm',
+    lineNumbers: true,
+    theme: 'neo',
+    lineWrapping: false,
+    autoFocus: false
+  });
+
+
   restoreOptions();
 
   $('#gitUser').change(function() {
@@ -95,7 +114,7 @@ $(document).ready(function() {
     validateField($('#token'), $('#token_grp'));
   });
 
-
+  $('#restoreBtn').click(restoreDefaultTemplate);
   $('#saveBtn').click(saveOptions);
 });
 
