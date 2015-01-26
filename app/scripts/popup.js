@@ -8,11 +8,12 @@ var gitRepo = '';
 var gitUser = '';
 var DraftsDir = '';
 var token = '';
+var template = '';
 
 var today = new moment();
 
-var day = today.format('YYYY-MM-DD');
-var date = today.format('YYYY-MM-DD HH:mm');
+var date = today.format('YYYY-MM-DD');
+var time = today.format('HH:mm');
 
 var title = '';
 var quote = '';
@@ -23,10 +24,7 @@ var postEditor;
 
 var postArticle = function() {
 
-  //check config values first, if any are missing then abort and show error message
-
-
-
+  //TODO: check config values first, if any are missing then abort and show error message
 
   var content = window.btoa(unescape(encodeURIComponent($('#quote').val())));
   filename = document.getElementById('filename').value;
@@ -105,16 +103,31 @@ $(document).ready(function() {
 
 */
 
+var processTemplate = function(template, context){
+  var postOutput = template;
+  postOutput = postOutput.replace(/<<title>>/g, context.title);
+  postOutput = postOutput.replace(/<<date>>/g, context.date);
+  postOutput = postOutput.replace(/<<time>>/g, context.time);
+  postOutput = postOutput.replace(/<<url>>/g, context.url);
+  postOutput = postOutput.replace(/<<quote>>/g, context.quote);
+  return postOutput;
+}
+
 
 var formatPost = function() {
-
-  var body = quote.split('\n').map(function(line) {
+  quote = quote.split('\n').map(function(line) {
     return '> ' + line;
   }).join('\n');
 
-  body = '---\n' + 'layout: post\n' + 'title: ' + title + '\n' + 'date: ' + date + '\n' + 'url: ' + url + '\n' + '---\n' + '[' + title + '](' + url + ')\n\n' + body;
-
-  return body;
+  var context = {
+    title: title,
+    date: date,
+    time: time,
+    url: url,
+    quote: quote
+  }
+  var postText = processTemplate(template, context);
+  return postText;
 };
 
 var loadSettings = function(done) {
@@ -122,18 +135,21 @@ var loadSettings = function(done) {
       gitUser: '',
       gitRepo: '',
       DraftsDir: '_drafts',
-      token: ''
+      token: '',
+      template: default_template
     },
     function(item) {
       gitRepo = item.gitRepo;
       gitUser = item.gitUser;
       DraftsDir = item.DraftsDir;
       token = item.token;
+      template = item.template;
       done();
     });
 };
 
 var createPostFromPage = function() {
+
   chrome.tabs.query({
     active: true,
     currentWindow: true
@@ -142,20 +158,19 @@ var createPostFromPage = function() {
     chrome.tabs.sendMessage(tabs[0].id, {
       method: 'getSelection'
     }, function(response) {
+
       quote = response.quote;
       title = response.title;
       url = response.url;
 
-      var body = formatPost();
-      postEditor.setValue(body);
+      var postBody = formatPost();
+      postEditor.setValue(postBody);
 
-      filename = day + ' ' + title;
+      filename = date + ' ' + title;
       filename = filename.replace(/\W+/g, '-') + '.markdown';
-      //var bodyElement = document.getElementById('quote');
+
       var filenameElement = document.getElementById('filename');
       filenameElement.value = filename;
-      //bodyElement.value = body;
-
 
     });
   });
