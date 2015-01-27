@@ -161,16 +161,13 @@ var createPostFromPage = function() {
       post.title = response.title;
       post.url = response.url;
 
-      console.log(post);
-
       var postBody = formatPost(post);
       postEditor.setValue(postBody);
 
       post.filename = post.date + ' ' + post.title;
       post.filename = post.filename.replace(/\W+/g, '-') + '.markdown';
 
-      var filenameElement = document.getElementById('filename');
-      filenameElement.value = post.filename;
+      $('#filename').val(post.filename);
 
     });
   });
