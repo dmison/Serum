@@ -4,33 +4,26 @@
 
 'use strict';
 
-var gitRepo = '';
-var gitUser = '';
-var DraftsDir = '';
-var token = '';
-var template = '';
-
-var today = new moment();
-
-var date = today.format('YYYY-MM-DD');
-var time = today.format('HH:mm');
-
-var title = '';
-var quote = '';
-var url = '';
-var filename = '';
-
 var postEditor;
+
+var config = {
+  gitRepo: '',
+  gitUser: '',
+  DraftsDir: '',
+  token: '',
+  template: ''
+}
+
 
 var postArticle = function() {
 
   //TODO: check config values first, if any are missing then abort and show error message
 
   var content = window.btoa(unescape(encodeURIComponent($('#quote').val())));
-  filename = document.getElementById('filename').value;
+  var filename = $('#filename').val();
 
   var base = 'https://api.github.com';
-  var url = base + '/repos/' + gitUser + '/' + gitRepo + '/contents/' + DraftsDir + '/' + filename;
+  var url = base + '/repos/' + config.gitUser + '/' + config.gitRepo + '/contents/' + config.DraftsDir + '/' + filename;
 
   var reqObject = {
     'message': 'adding draft: ' + title,
@@ -42,7 +35,7 @@ var postArticle = function() {
   $('.statusError').hide();
   $('#progress').show();
 
-  url = url + '?access_token=' + token;
+  url = url + '?access_token=' + config.token;
   $('#progress').show();
   $.ajax({
     type: 'PUT',
@@ -103,30 +96,21 @@ $(document).ready(function() {
 
 */
 
-var processTemplate = function(template, context){
-  var postOutput = template;
-  postOutput = postOutput.replace(/<<title>>/g, context.title);
-  postOutput = postOutput.replace(/<<date>>/g, context.date);
-  postOutput = postOutput.replace(/<<time>>/g, context.time);
-  postOutput = postOutput.replace(/<<url>>/g, context.url);
-  postOutput = postOutput.replace(/<<quote>>/g, context.quote);
-  return postOutput;
-}
 
-
-var formatPost = function() {
-  quote = quote.split('\n').map(function(line) {
+var formatPost = function(post) {
+  console.log('formatPost');
+  post.quote = post.quote.split('\n').map(function(line) {
     return '> ' + line;
   }).join('\n');
 
-  var context = {
-    title: title,
-    date: date,
-    time: time,
-    url: url,
-    quote: quote
-  }
-  var postText = processTemplate(template, context);
+  var postText = post.template;
+  postText = postText.replace(/<<title>>/g, post.title);
+  postText = postText.replace(/<<date>>/g, post.date);
+  postText = postText.replace(/<<time>>/g, post.time);
+  postText = postText.replace(/<<url>>/g, post.url);
+  postText = postText.replace(/<<quote>>/g, post.quote);
+  console.log(postText);
+
   return postText;
 };
 
@@ -139,11 +123,11 @@ var loadSettings = function(done) {
       template: default_template
     },
     function(item) {
-      gitRepo = item.gitRepo;
-      gitUser = item.gitUser;
-      DraftsDir = item.DraftsDir;
-      token = item.token;
-      template = item.template;
+      config.gitRepo = item.gitRepo;
+      config.gitUser = item.gitUser;
+      config.DraftsDir = item.DraftsDir;
+      config.token = item.token;
+      config.template = item.template;
       done();
     });
 };
@@ -159,18 +143,34 @@ var createPostFromPage = function() {
       method: 'getSelection'
     }, function(response) {
 
-      quote = response.quote;
-      title = response.title;
-      url = response.url;
+      var post = {
+        date:'',
+        time:'',
+        title:'',
+        quote:'',
+        url:'',
+        template: config.template,
+        filename:''
+      }
 
-      var postBody = formatPost();
+      var today = new moment();
+      post.date = today.format('YYYY-MM-DD');
+      post.time = today.format('HH:mm');
+
+      post.quote = response.quote;
+      post.title = response.title;
+      post.url = response.url;
+
+      console.log(post);
+
+      var postBody = formatPost(post);
       postEditor.setValue(postBody);
 
-      filename = date + ' ' + title;
-      filename = filename.replace(/\W+/g, '-') + '.markdown';
+      post.filename = post.date + ' ' + post.title;
+      post.filename = post.filename.replace(/\W+/g, '-') + '.markdown';
 
       var filenameElement = document.getElementById('filename');
-      filenameElement.value = filename;
+      filenameElement.value = post.filename;
 
     });
   });
@@ -182,7 +182,7 @@ var createPostFromPage = function() {
 document.addEventListener('DOMContentLoaded', function() {
 
   loadSettings(function() {
-    if (gitRepo === '' || gitUser === '' || DraftsDir === '' || token === '') {
+    if (config.gitRepo === '' || config.gitUser === '' || config.DraftsDir === '' || config.token === '') {
       $('#editor').hide();
       $('#warning').show();
     } else {
