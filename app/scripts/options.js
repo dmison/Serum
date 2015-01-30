@@ -14,6 +14,7 @@ var saveOptions = function() {
   var gitUser = $('#gitUser').val();
   var gitRepo = $('#gitRepo').val();
   var DraftsDir = $('#DraftsDir').val();
+  var postsDir = $('#postsDir').val();
   var token = $('#token').val();
   var template = templateEditor.getValue();
 
@@ -21,6 +22,7 @@ var saveOptions = function() {
     gitUser: gitUser,
     gitRepo: gitRepo,
     DraftsDir: DraftsDir,
+    postsDir: postsDir,
     token: token,
     template: template
   }, function() {
@@ -55,6 +57,7 @@ var restoreOptions = function() {
       gitUser: '',
       gitRepo: '',
       DraftsDir: '_drafts',
+      postsDir: '_posts',
       token: '',
       template: default_template
     },
@@ -62,12 +65,14 @@ var restoreOptions = function() {
       $('#gitUser').val(item.gitUser);
       $('#gitRepo').val(item.gitRepo);
       $('#DraftsDir').val(item.DraftsDir);
+      $('#postsDir').val(item.postsDir);
       $('#token').val(item.token);
       templateEditor.setValue(item.template);
 
       validateField($('#gitUser'), $('#gitUser_grp'));
       validateField($('#gitRepo'), $('#gitRepo_grp'));
       validateField($('#DraftsDir'), $('#DraftsDir_grp'));
+      validateField($('#postsDir'), $('#postsDir_grp'));
       validateField($('#token'), $('#token_grp'));
 
     });
@@ -84,7 +89,7 @@ $(document).ready(function() {
 
   var templateArea = $('#template').get(0);
   templateEditor = CodeMirror.fromTextArea(templateArea, {
-    mode: 'gfm',
+    mode: 'templateMP',
     lineNumbers: true,
     theme: 'neo',
     lineWrapping: false,
@@ -113,6 +118,13 @@ $(document).ready(function() {
   });
   $('#DraftsDir').keyup(function() {
     validateField($('#DraftsDir'), $('#DraftsDir_grp'));
+  });
+
+  $('#postsDir').change(function() {
+    validateField($('#postsDir'), $('#postsDir_grp'));
+  });
+  $('#postsDir').keyup(function() {
+    validateField($('#postsDir'), $('#postsDir_grp'));
   });
 
   $('#token').change(function() {
