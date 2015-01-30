@@ -6,8 +6,10 @@ var templateEditor;
 
 // Saves options to chrome.storage
 var saveOptions = function() {
-  $('#saving').show();
-  $('#saved').hide();
+  $('#saving').addClass('shown');
+  $('#saving').removeClass('hidden');
+  $('#saved').removeClass('shown');
+  $('#saved').addClass('hidden');
 
   var gitUser = $('#gitUser').val();
   var gitRepo = $('#gitRepo').val();
@@ -24,10 +26,13 @@ var saveOptions = function() {
   }, function() {
     // Update status to let user know options were saved.
     window.setTimeout(function() {
-      $('#saving').hide();
-      $('#saved').show();
+      $('#saving').removeClass('shown');
+      $('#saving').addClass('hidden');
+      $('#saved').addClass('shown');
+      $('#saved').removeClass('hidden');
       window.setTimeout(function() {
-        $('#saved').hide();
+        $('#saved').removeClass('shown');
+        $('#saved').addClass('hidden');
       }, 750);
 
     }, 500);
@@ -73,6 +78,9 @@ var restoreDefaultTemplate = function(){
 }
 
 $(document).ready(function() {
+
+  $('#saving').addClass('hidden');
+  $('#saved').addClass('hidden');
 
   var templateArea = $('#template').get(0);
   templateEditor = CodeMirror.fromTextArea(templateArea, {

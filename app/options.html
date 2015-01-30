@@ -29,18 +29,17 @@
       }
       .status {
         padding-top: 5px;
-        margin-left: 0px;
+        margin-left: 5px;
         margin-right: 0px;
         margin-top: 0px;
-        margin-bottom: 15px;
+        margin-bottom: 1px;
       }
-      #saved {
+      #shown {
+        display: inline-block;
+      }
+      #hidden {
         display: none;
       }
-      #saving {
-        display: none;
-      }
-
       div.CodeMirror {
         font-size: 12px;
         border: 1px solid #ccc;
@@ -50,7 +49,6 @@
       .cm-s-neo .cm-quote {
         color: #75787b
       }
-
     </style>
   </head>
 
@@ -66,83 +64,106 @@
           <h2 class="media-heading">Serum Options</h2>
         </div>
       </div>
-
       <div>&nbsp;</div>
+      <!-- ====================================================== -->
 
-      <div id="welcome">
-        <p><b>Welcome to Serum</b>, the easiest way to link post to your Github-hosted Jekyll blog.</p>
-        <p>Before you can start using <b>Serum</b> you have to configure the following:</p>
-      </div>
+      <div class="row">
 
-      <div class="panel panel-default">
+        <div class="col-sm-8">
+          <div id="welcome">
+            <p><b>Welcome to Serum</b>, the easiest way to link post to your Github-hosted Jekyll blog.</p>
+            <p>Before you can start using <b>Serum</b> you have to configure at least your Github details.</p>
+          </div>
+          <div>&nbsp;</div>
+        </div>
 
-        <div class="panel-body">
-
-          <form class="form-horizontal" id="optionsForm">
-
-            <div class="form-group" id="gitUser_grp">
-              <label for="gitUser" class="col-sm-3 control-label">Github Username</label>
-              <div class="col-sm-6">
-                <input type="text" id="gitUser" class="form-control">
-              </div>
-            </div>
-            <div class="form-group" id="gitRepo_grp">
-              <label for="gitRepo" class="col-sm-3 control-label">Github Repo</label>
-              <div class="col-sm-6">
-                <input type="text" id="gitRepo" class="form-control">
-              </div>
-            </div>
-            <div class="form-group" id="DraftsDir_grp">
-              <label for="DraftsDir" class="col-sm-3 control-label">Drafts Directory</label>
-              <div class="col-sm-6">
-                <input type="text" id="DraftsDir" class="form-control">
-              </div>
-            </div>
-
-            <div class="form-group" id="token_grp">
-              <label for="token" class="col-sm-3 control-label">Access Token</label>
-              <div class="col-sm-6">
-                <input type="text" id="token" class="form-control">
-                <div><a href="https://help.github.com/articles/creating-an-access-token-for-command-line-use/" target="_blank">How to create a Github access token</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-group" id="template_grp">
-              <label for="template" class="col-sm-3 control-label">Post Template:</label>
-              <div class="col-sm-6">
-                <textarea id="template"></textarea> <!--  cols="80" rows="19" -->
-              </div>
-              <a id="restoreBtn" class="btn btn-info btn-sm status">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Restore Default Template
-              </a>
-            </div>
-
-            <div class="form-group">
-              <div class="col-sm-1 col-sm-offset-3">
-                <a id="saveBtn" class="btn btn-success btn-sm status">
-                  <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> save
-                </a>
-              </div>
-              <div class="col-sm-3">
-                <div id="saving" class="status">
-                  <span><i class="fa fa-circle-o-notch fa-spin"></i> Saving ...</span>
-                </div>
-                <div id="saved" class="status">
-                  <span><i class="fa fa-check"></i> Saved</span>
-                </div>
-              </div>
-            </div>
-
-          </form>
+        <div class="col-sm-3">
+          <a id="saveBtn" class="btn btn-success btn-sm status">
+            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> save changes
+          </a>
+            <span id="saving" class="status"><i class="fa fa-circle-o-notch fa-spin"></i> Saving ...</span>
+            <span id="saved" class="status"><i class="fa fa-check"></i> Saved</span>
 
         </div>
 
       </div>
 
+    <form class="form-horizontal" id="optionsForm">
 
-      <p>&nbsp;&nbsp;&nbsp;Icons by <a href="http://icons8.com/" target="_blank">Icons8</a>
-    </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Github Details and Authentication</h3>
+        </div>
+
+        <div class="panel-body">
+
+          <div class="form-group" id="gitUser_grp">
+            <label for="gitUser" class="col-sm-2 control-label">Github Username</label>
+            <div class="col-sm-4">
+              <input type="text" id="gitUser" class="form-control">
+            </div>
+            <div class="col-sm-6">
+              Your Github.com username
+            </div>
+          </div>
+          <div class="form-group" id="gitRepo_grp">
+            <label for="gitRepo" class="col-sm-2 control-label">Github Repo</label>
+            <div class="col-sm-4">
+              <input type="text" id="gitRepo" class="form-control">
+            </div>
+            <div class="col-sm-6">
+              The name of the repository with your Jekyll site source
+            </div>
+          </div>
+          <div class="form-group" id="DraftsDir_grp">
+            <label for="DraftsDir" class="col-sm-2 control-label">Drafts Directory</label>
+            <div class="col-sm-4">
+              <input type="text" id="DraftsDir" class="form-control">
+            </div>
+            <div class="col-sm-6">
+              The sub-directory of your repo where your draft posts are kept.  Usually <b>_drafts</b>
+            </div>
+          </div>
+          <div class="form-group" id="token_grp">
+            <label for="token" class="col-sm-2 control-label">Access Token</label>
+            <div class="col-sm-4">
+              <input type="text" id="token" class="form-control">
+            </div>
+            <div class="col-sm-6">
+              <a href="https://help.github.com/articles/creating-an-access-token-for-command-line-use/" target="_blank">How to create a Github access token</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Post Template</h3>
+        </div>
+        <div class="panel-body">
+
+          <div class="form-group" id="template_grp">
+            <label for="template" class="col-sm-2 control-label">Post Template:</label>
+            <div class="col-sm-6">
+              <textarea id="template"></textarea>
+              <!--  cols="80" rows="19" -->
+            </div>
+            <a id="restoreBtn" class="btn btn-info btn-sm status">
+              <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Restore Default Template
+            </a>
+
+          </div>
+
+
+        </div>
+      </div>
+    </form>
+
+
+
+    <p>&nbsp;&nbsp;&nbsp;Icons by <a href="http://icons8.com/" target="_blank">Icons8</a>
+      </div>
 
   </body>
   <script src="scripts/options.js"></script>
