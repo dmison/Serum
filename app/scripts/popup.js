@@ -10,8 +10,19 @@ var config = {
   gitRepo: '',
   gitUser: '',
   DraftsDir: '',
+  postsDir: '',
   token: '',
   template: ''
+}
+
+var post = {
+  date: '',
+  time: '',
+  title: '',
+  quote: '',
+  url: '',
+  template: '',
+  filename: ''
 }
 
 
@@ -19,14 +30,25 @@ var postArticle = function() {
 
   //TODO: check config values first, if any are missing then abort and show error message
 
-  var content = window.btoa(unescape(encodeURIComponent($('#quote').val())));
+  var content = window.btoa(unescape(encodeURIComponent(postEditor.getValue())));
+
   var filename = $('#filename').val();
+  var targetDir = $('#dirSelect option:selected').text();
+
 
   var base = 'https://api.github.com';
-  var url = base + '/repos/' + config.gitUser + '/' + config.gitRepo + '/contents/' + config.DraftsDir + '/' + filename;
+  var url = base + '/repos/' + config.gitUser + '/' + config.gitRepo + '/contents/' + targetDir + '/' + filename;
+
+  var message = '';
+  if (targetDir === config.DraftsDir) {
+    message = 'adding draft: ' + post.title;
+  } else {
+    message = 'publishing: ' + post.title;
+  }
+
 
   var reqObject = {
-    'message': 'adding draft: ' + title,
+    'message': message,
     'content': content
   };
 
@@ -97,9 +119,8 @@ $(document).ready(function() {
 */
 
 
-var formatPost = function(post) {
-  console.log('formatPost');
-  post.quote = post.quote.split('\n').map(function(line) {
+var formatPost = function() {
+  var blockquote = post.quote.split('\n').map(function(line) {
     return '> ' + line;
   }).join('\n');
 
@@ -108,8 +129,7 @@ var formatPost = function(post) {
   postText = postText.replace(/<<date>>/g, post.date);
   postText = postText.replace(/<<time>>/g, post.time);
   postText = postText.replace(/<<url>>/g, post.url);
-  postText = postText.replace(/<<quote>>/g, post.quote);
-  console.log(postText);
+  postText = postText.replace(/<<quote>>/g, blockquote);
 
   return postText;
 };
@@ -119,6 +139,7 @@ var loadSettings = function(done) {
       gitUser: '',
       gitRepo: '',
       DraftsDir: '_drafts',
+      postsDir: '_posts',
       token: '',
       template: default_template
     },
@@ -126,6 +147,7 @@ var loadSettings = function(done) {
       config.gitRepo = item.gitRepo;
       config.gitUser = item.gitUser;
       config.DraftsDir = item.DraftsDir;
+      config.postsDir = item.postsDir;
       config.token = item.token;
       config.template = item.template;
       done();
@@ -143,15 +165,6 @@ var createPostFromPage = function() {
       method: 'getSelection'
     }, function(response) {
 
-      var post = {
-        date:'',
-        time:'',
-        title:'',
-        quote:'',
-        url:'',
-        template: config.template,
-        filename:''
-      }
 
       var today = new moment();
       post.date = today.format('YYYY-MM-DD');
@@ -161,14 +174,15 @@ var createPostFromPage = function() {
       post.title = response.title;
       post.url = response.url;
 
-      var postBody = formatPost(post);
+      var postBody = formatPost();
       postEditor.setValue(postBody);
 
       post.filename = post.date + ' ' + post.title;
       post.filename = post.filename.replace(/\W+/g, '-') + '.markdown';
-
       $('#filename').val(post.filename);
 
+      $('#draftSelect').text(config.DraftsDir);
+      $('#postSelect').text(config.postsDir);
     });
   });
 };
@@ -185,6 +199,7 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
       $('#editor').show();
       $('#warning').hide();
+      post.template = config.template;
       createPostFromPage();
     }
 
