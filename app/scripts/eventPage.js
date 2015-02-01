@@ -7,10 +7,16 @@ chrome.runtime.onInstalled.addListener(function(details) {
       url: 'options.html'
     });
   }
+
+  if (details.reason === 'upgrade') {
+    chrome.tabs.create({
+      url: 'release_notes.html'
+    });
+  }
 });
 
 chrome.browserAction.onClicked.addListener(function(tab) {
-  console.log('sending message');
+
   chrome.tabs.sendRequest(
     tab.id, {
       method: 'getSelection'
