@@ -193,7 +193,7 @@ var createPostFromPage = function() {
 document.addEventListener('DOMContentLoaded', function() {
 
   loadSettings(function() {
-    if (config.gitRepo === '' || config.gitUser === '' || config.DraftsDir === '' || config.token === '') {
+    if (config.gitRepo === '' || config.gitUser === '' || config.postsDir === '' || config.DraftsDir === '' || config.token === '') {
       $('#editor').hide();
       $('#warning').show();
     } else {
