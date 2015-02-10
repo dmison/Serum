@@ -13,7 +13,7 @@ var config = {
   postsDir: '',
   token: '',
   template: ''
-}
+};
 
 var post = {
   date: '',
@@ -23,7 +23,7 @@ var post = {
   url: '',
   template: '',
   filename: ''
-}
+};
 
 
 var postArticle = function() {
@@ -141,7 +141,7 @@ var loadSettings = function(done) {
       DraftsDir: '_drafts',
       postsDir: '_posts',
       token: '',
-      template: default_template
+      template: defaultTemplate
     },
     function(item) {
       config.gitRepo = item.gitRepo;

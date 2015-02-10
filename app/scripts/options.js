@@ -59,7 +59,7 @@ var restoreOptions = function() {
       DraftsDir: '_drafts',
       postsDir: '_posts',
       token: '',
-      template: default_template
+      template: defaultTemplate
     },
     function(item) {
       $('#gitUser').val(item.gitUser);
@@ -79,8 +79,8 @@ var restoreOptions = function() {
 };
 
 var restoreDefaultTemplate = function(){
-  templateEditor.setValue(default_template);
-}
+  templateEditor.setValue(defaultTemplate);
+};
 
 $(document).ready(function() {
 
