@@ -5,7 +5,7 @@ var runSequence = require('run-sequence');
 var del = require('del');
 
 gulp.task('cleanall', function() {
-  return del(['app/app.js', 'temp', 'app/scripts/github.js']);
+  return del(['app/app.js', 'temp', 'app/vendor']);
 });
 
 gulp.task('build-sequence', function(callback) {
@@ -16,21 +16,21 @@ gulp.task('build-sequence', function(callback) {
 
 gulp.task('copy-github-js', function(){
   return gulp.src('node_modules/github-api/github.js')
-    .pipe(gulp.dest('app/scripts'));
+    .pipe(gulp.dest('app/vendor'));
 });
 
 gulp.task('copy-bootstrap', function(){
   gulp.src('node_modules/bootstrap/dist/**/*')
-    .pipe(gulp.dest('app/bootstrap'));
+    .pipe(gulp.dest('app/vendor/bootstrap'));
 });
 
 gulp.task('copy-fontawesome', function(){
 
   gulp.src('node_modules/font-awesome/css/**/*')
-    .pipe(gulp.dest('app/font-awesome/css'));
+    .pipe(gulp.dest('app/vendor/font-awesome/css'));
 
   gulp.src('node_modules/font-awesome/fonts/**/*')
-    .pipe(gulp.dest('app/font-awesome/fonts'));
+    .pipe(gulp.dest('app/vendor/font-awesome/fonts'));
 
 });
 
