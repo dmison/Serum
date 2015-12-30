@@ -3,158 +3,167 @@
 
   <head>
     <title>Serum</title>
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="vendor/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="vendor/font-awesome-4.2.0/css/font-awesome.min.css">
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
 
-    <link rel="stylesheet" href="vendor/codemirror-4.11/codemirror.css">
-    <link rel="stylesheet" href="vendor/codemirror-4.11/theme/neo.css">
-
-    <style>
-      body {
-        min-width: 740px;
-        margin: 30px;
-      }
-      .status {
-        padding: 5px;
-        margin-left: 0px;
-        margin-right: 0px;
-        margin-top: 0px;
-        margin-bottom: 10px;
-      }
-      .statusError {
-        display: none;
-      }
-      .statusSuccess {
-        display: none;
-      }
-      #closeButton {
-        display: none;
-      }
-      #progress {
-        display: none;
-      }
-      #editor {
-        display: none;
-      }
-      #warning {
-        display: none;
-      }
-      ul {
-        padding-left: 30px;
-      }
-      div.CodeMirror {
-        font-size: 12px;
-        border: 1px solid #ccc;
-        height: 400px;
-      }
-      .cm-s-neo .cm-quote {
-        color: #75787b
-      }
-
-      .filenameDiv {
-        padding-top: 8px;
-        padding-left: 0px;
-        padding-right: 0px;
-        text-align: right;
-      }
-    /* font-size: 16px; */
-
-
-
-
-
-
-
-    </style>
-
-    <script src="vendor/jquery/jquery-2.1.3.min.js"></script>
-    <script src="vendor/moment/moment.min.js"></script>
-
-    <script src="scripts/default_template.js"></script>
-
-    <script src="vendor/codemirror-4.11/codemirror.js"></script>
-    <script src="vendor/codemirror-4.11/addon/mode/overlay.js"></script>
-    <script src="vendor/codemirror-4.11/addon/mode/multiplex.js"></script>
-    <script src="vendor/codemirror-4.11/mode/markdown/markdown.js"></script>
-    <script src="vendor/codemirror-4.11/mode/yaml/yaml.js"></script>
-    <script src="vendor/codemirror-4.11/mode/gfm/gfm.js"></script>
-    <script src="scripts/yamlfrontmatter.js"></script>
-    <script src="vendor/codemirror-4.11/mode/javascript/javascript.js"></script>
-
-    <script src="scripts/popup.js"></script>
   </head>
 
   <body>
+    <div id="app">Loading ...</div>
+    <!-- [todo] - waiting for githubjs update to 0.10.8 to resolve https://github.com/michael/github/issues/259 -->
+    <script src="scripts/github.js"></script>
 
-    <div id="warning" class="panel panel-default panel-danger">
-      <div class="panel-heading">
-        <h3 class="panel-title">WARNING: Configuration Missing!</h3>
-      </div>
-      <div class="panel-body">
-        <p>You need to go to the options page and configure the following items:</p>
-        <ul>
-          <li>Your Github username</li>
-          <li>The Github repo for your Jekyll site</li>
-          <li>The directory to publish to (Default:
-            <code>_drafts</code>)</li>
-          <li>A Github authentication token</li>
-        </ul>
-        <button id="optionslink" class="btn btn-info btn-sm">
-          <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Options</button>
-      </div>
-    </div>
-
-    <div id="editor">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="form-group">
-            <label for="quote">New Post</label>
-            <textarea id="quote" cols="80" rows="19"></textarea>
-          </div>
-          <div class="form-group">
-            <div class="row">
-              <div class="col-sm-2 filenameDiv">
-                <label for="filename">Post filename:</label>
-              </div>
-              <div class="col-sm-2" style="padding-right:5px;">
-                <select class="form-control col-sm-3" id="dirSelect">
-                  <option id="draftSelect">_draft</option>
-                  <option id="postSelect">_post</option>
-                </select>
-              </div>
-            <div class="col-sm-1" style="display:inline-block; width:15px; font-size:25px; padding-right:5px; padding-left:5px;">/</div>
-              <div class="col-sm-7"  style="padding-left:5px; width:64%">
-                <input class="form-control col-sm-3" id="filename" type="text" value="" placeholder="filename">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-xs-2">
-          <button id="postButton" class="btn btn-info btn-sm">
-            <span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Post
-          </button>
-          <button id="closeButton" class="btn btn-success btn-sm">
-            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Close
-          </button>
-        </div>
-        <div class="col-xs-10">
-          <div id="progress" style="padding:0px; margin-top:5px;">
-            <span><i class="fa fa-circle-o-notch fa-spin"></i> Posting ...</span>
-          </div>
-          <div id="error" class="alert alert-danger status statusError" role="alert">
-            <b>ERROR: <span id="status"></span> (<span id="code"></span>)</b>
-            <span id="errorMessage"></span>
-          </div>
-          <div id="success" class="alert alert-success status statusSuccess" role="alert">
-            <span id="successMessage">Post committed successfully</span>
-          </div>
-        </div>
-      </div>
-    </div>
+    <script src="app.js"></script>
   </body>
 
 </html>
+
+
+<!-- <div id="warning" class="panel panel-default panel-danger">
+  <div class="panel-heading">
+    <h3 class="panel-title">WARNING: Configuration Missing!</h3>
+  </div>
+  <div class="panel-body">
+    <p>You need to go to the options page and configure the following items:</p>
+    <ul>
+      <li>Your Github username</li>
+      <li>The Github repo for your Jekyll site</li>
+      <li>The directory to publish to (Default:
+        <code>_drafts</code>)</li>
+      <li>A Github authentication token</li>
+    </ul>
+    <button id="optionslink" class="btn btn-info btn-sm">
+      <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Options</button>
+  </div>
+</div>
+
+<div id="editor">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="form-group">
+        <label for="quote">New Post</label>
+        <textarea id="quote" cols="80" rows="19"></textarea>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-2 filenameDiv">
+            <label for="filename">Post filename:</label>
+          </div>
+          <div class="col-sm-2" style="padding-right:5px;">
+            <select class="form-control col-sm-3" id="dirSelect">
+              <option id="draftSelect">_draft</option>
+              <option id="postSelect">_post</option>
+            </select>
+          </div>
+        <div class="col-sm-1" style="display:inline-block; width:15px; font-size:25px; padding-right:5px; padding-left:5px;">/</div>
+          <div class="col-sm-7"  style="padding-left:5px; width:64%">
+            <input class="form-control col-sm-3" id="filename" type="text" value="" placeholder="filename">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-2">
+      <button id="postButton" class="btn btn-info btn-sm">
+        <span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Post
+      </button>
+      <button id="closeButton" class="btn btn-success btn-sm">
+        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Close
+      </button>
+    </div>
+    <div class="col-xs-10">
+      <div id="progress" style="padding:0px; margin-top:5px;">
+        <span><i class="fa fa-circle-o-notch fa-spin"></i> Posting ...</span>
+      </div>
+      <div id="error" class="alert alert-danger status statusError" role="alert">
+        <b>ERROR: <span id="status"></span> (<span id="code"></span>)</b>
+        <span id="errorMessage"></span>
+      </div>
+      <div id="success" class="alert alert-success status statusSuccess" role="alert">
+        <span id="successMessage">Post committed successfully</span>
+      </div>
+    </div>
+  </div> -->
+
+
+
+
+  <!-- /*<style>
+    /*body {
+      min-width: 740px;
+      margin: 30px;
+      overflow: hidden;
+    }
+    .status {
+      padding: 5px;
+      margin-left: 0px;
+      margin-right: 0px;
+      margin-top: 0px;
+      margin-bottom: 10px;
+    }
+    .statusError {
+      display: none;
+    }
+    .statusSuccess {
+      display: none;
+    }
+    #closeButton {
+      display: none;
+    }
+    #progress {
+      display: none;
+    }
+    #editor {
+      display: none;
+    }
+    #warning {
+      display: none;
+    }
+    ul {
+      padding-left: 30px;
+    }
+    div.CodeMirror {
+      font-size: 12px;
+      border: 1px solid #ccc;
+      /*height: 400px;*/
+    }
+    .cm-s-neo .cm-quote {
+      color: #75787b
+    }
+
+    .filenameDiv {
+      padding-top: 8px;
+      padding-left: 0px;
+      padding-right: 0px;
+      text-align: right;
+    }*/
+  /* font-size: 16px; */
+
+
+
+
+
+
+
+  </style>*/ -->
+<!--
+  <script src="vendor/jquery/jquery-2.1.3.min.js"></script>
+  <script src="vendor/moment/moment.min.js"></script>
+
+  <script src="scripts/default_template.js"></script>
+
+  <script src="vendor/codemirror-4.11/codemirror.js"></script>
+  <script src="vendor/codemirror-4.11/addon/mode/overlay.js"></script>
+  <script src="vendor/codemirror-4.11/addon/mode/multiplex.js"></script>
+  <script src="vendor/codemirror-4.11/mode/markdown/markdown.js"></script>
+  <script src="vendor/codemirror-4.11/mode/yaml/yaml.js"></script>
+  <script src="vendor/codemirror-4.11/mode/gfm/gfm.js"></script>
+  <script src="scripts/yamlfrontmatter.js"></script>
+  <script src="vendor/codemirror-4.11/mode/javascript/javascript.js"></script> -->
+
+
+  <!-- <link rel="stylesheet" href="vendor/codemirror-4.11/codemirror.css">
+  <link rel="stylesheet" href="vendor/codemirror-4.11/theme/neo.css"> -->
