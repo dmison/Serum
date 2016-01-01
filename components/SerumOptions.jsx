@@ -7,6 +7,8 @@
 
   var brace = require('brace');
   var AceEditor = require('react-ace');
+  require('brace/mode/markdown');
+  require('brace/theme/github');
 
   var SerumOptions = React.createClass({
 
