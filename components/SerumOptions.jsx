@@ -106,6 +106,8 @@
                 theme='github'
                 onChange={this.setTemplate}
                 value={this.state.template}
+                editorProps={{$blockScrolling: true}}
+                wrapEnabled={true}
                 />
               <br/>
               <a id='restoreBtn' className='btn btn-info btn-sm status'>
