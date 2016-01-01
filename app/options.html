@@ -5,20 +5,7 @@
     <title>Serum Options</title>
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="vendor/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="vendor/font-awesome-4.2.0/css/font-awesome.min.css">
-    <script src="vendor/jquery/jquery-2.1.3.min.js"></script>
-    <script src="scripts/default_template.js"></script>
-
-    <link rel="stylesheet" href="vendor/codemirror-4.11/codemirror.css">
-    <link rel="stylesheet" href="vendor/codemirror-4.11/theme/neo.css">
-    <script src="vendor/codemirror-4.11/codemirror.js"></script>
-    <script src="vendor/codemirror-4.11/addon/mode/overlay.js"></script>
-    <script src="vendor/codemirror-4.11/addon/mode/multiplex.js"></script>
-    <script src="vendor/codemirror-4.11/mode/markdown/markdown.js"></script>
-    <script src="vendor/codemirror-4.11/mode/yaml/yaml.js"></script>
-    <script src="vendor/codemirror-4.11/mode/gfm/gfm.js"></script>
-    <script src="scripts/templateMultiplex.js"></script>
-
+    <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
 
     <style>
       body {
@@ -27,37 +14,8 @@
       .panel-body {
         margin: 15px;
       }
-      .status {
-        padding-top: 5px;
-        margin-left: 5px;
-        margin-right: 0px;
-        margin-top: 0px;
-        margin-bottom: 1px;
-      }
-      #shown {
-        display: inline-block;
-      }
-      #hidden {
-        display: none;
-      }
-      div.CodeMirror {
-        font-size: 12px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        height: 250px;
-      }
-      .cm-s-neo .cm-quote {
-        color: #75787b
-      }
-      dd {
-        margin-top: 5px;
-        margin-left: 30px;
-        margin-bottom: 10px;
-      }
-      .helptext {
-        padding-top: 5px;
-      }
     </style>
+
   </head>
 
   <body>
@@ -71,148 +29,37 @@
         <div class="media-body">
           <h2 class="media-heading">Serum Options</h2>
         </div>
+              <div>&nbsp;</div>
       </div>
-      <div>&nbsp;</div>
+
       <!-- ====================================================== -->
+      <div className="row">
 
-      <div class="row">
+        <div className="col-sm-12">
 
-        <div class="col-sm-8">
-          <div id="welcome">
-            <p><b>Welcome to Serum</b>, the easiest way to link post to your Github-hosted Jekyll blog.</p>
-            <p>Before you can start using <b>Serum</b> you have to configure at least your Github details.</p>
-            <p><a href="release_notes.html" target="_blank">Read Release Notes</a>.</p>
-          </div>
-          <div>&nbsp;</div>
+        <div id="welcome">
+          <p><b>Welcome to Serum</b>, the easiest way to link post to your Github-hosted Jekyll blog.</p>
+          <p>Before you can start using <b>Serum</b> you have to configure at least your Github details.</p>
+          <p><a href="release_notes.html" target="_blank">Read Release Notes</a>.</p>
         </div>
-
-        <div class="col-sm-3">
-          <a id="saveBtn" class="btn btn-success btn-sm status">
-            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> save changes
-          </a>
-          <span id="saving" class="status"><i class="fa fa-circle-o-notch fa-spin"></i> Saving ...</span>
-          <span id="saved" class="status"><i class="fa fa-check"></i> Saved</span>
-
-        </div>
+        <div>&nbsp;</div>
 
       </div>
 
-      <form class="form-horizontal" id="optionsForm">
+      <div id="app">Loading ...</div>
 
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title">Github Details and Authentication</h3>
-          </div>
+      <div>&nbsp;</div>
 
-          <div class="panel-body">
-
-            <div class="form-group" id="gitUser_grp">
-              <label for="gitUser" class="col-sm-2 control-label">Github Username</label>
-              <div class="col-sm-4">
-                <input type="text" id="gitUser" class="form-control">
-              </div>
-              <div class="col-sm-6 helptext">
-                Your Github.com username
-              </div>
-            </div>
-            <div class="form-group" id="gitRepo_grp">
-              <label for="gitRepo" class="col-sm-2 control-label">Github Repo</label>
-              <div class="col-sm-4">
-                <input type="text" id="gitRepo" class="form-control">
-              </div>
-              <div class="col-sm-6 helptext">
-                The name of the repository with your Jekyll site source
-              </div>
-            </div>
-            <div class="form-group" id="DraftsDir_grp">
-              <label for="DraftsDir" class="col-sm-2 control-label">Drafts Directory</label>
-              <div class="col-sm-4">
-                <input type="text" id="DraftsDir" class="form-control">
-              </div>
-              <div class="col-sm-6 helptext">
-                The sub-directory of your repo where <i>draft</i> posts are kept. Usually <b>_drafts</b>
-              </div>
-            </div>
-            <div class="form-group" id="postsDir_grp">
-              <label for="postsDir" class="col-sm-2 control-label">Posts Directory</label>
-              <div class="col-sm-4">
-                <input type="text" id="postsDir" class="form-control">
-              </div>
-              <div class="col-sm-6 helptext">
-                The sub-directory of your repo where <i>published</i> posts are kept. Usually <b>_posts</b>
-              </div>
-            </div>
-            <div class="form-group" id="token_grp">
-              <label for="token" class="col-sm-2 control-label">Access Token</label>
-              <div class="col-sm-4">
-                <input type="text" id="token" class="form-control">
-              </div>
-              <div class="col-sm-6 helptext">
-                Your Github Access Token.
-                <a href="https://help.github.com/articles/creating-an-access-token-for-command-line-use/" target="_blank">How to create a Github access token</a>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title">Post Template</h3>
-          </div>
-          <div class="panel-body">
-
-            <div class="row">
-              <div class="col-sm-6">
-                <textarea id="template"></textarea>
-                <!--  cols="80" rows="19" -->
-                <br/>
-                <a id="restoreBtn" class="btn btn-info btn-sm status">
-                  <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Restore Default Template
-                </a>
-                <br/>
-                <br/>
-              </div>
-              <div class="col-sm-5">
-                <p>
-                  This is the template for a new post. It contains several placeholders indicated by the by <b>&lt;&lt;</b> and <b>&gt;&gt;</b> characters. These characters are replaced by the appropriate values for the page you are on when you activate
-                  Serum.
-                </p>
-                <dl>
-                  <dt>&lt;&lt;title&gt;&gt;</dt>
-                  <dd>The title of the current page.</dd>
-                  <dt>&lt;&lt;date&gt;&gt;</dt>
-                  <dd>The current date.</dd>
-                  <dt>&lt;&lt;time&gt;&gt;</dt>
-                  <dd>The current time.</dd>
-                  <dt>&lt;&lt;url&gt;&gt;</dt>
-                  <dd>The URL of the current page.</dd>
-                  <dt>&lt;&lt;quote&gt;&gt;</dt>
-                  <dd>The currently selected text of the page (if any) with each line prefixed with <b>&gt;</b> character (ie a markdown blockquote)</dd>
-                </dl>
-
-              </div>
-
-            </div>
-            <!-- <div class="row">&nbsp;</div>
-
-            <div class="row">
-              <div class="col-sm-6 col-sm-offset-1">
-                <a id="restoreBtn" class="btn btn-info btn-sm status">
-                  <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Restore Default Template
-                </a>
-              </div>
-            </div> -->
-          </div>
-        </div>
-      </form>
+      <p>Icons by <a href="http://icons8.com/" target="_blank">Icons8</a>
 
 
-
-      <p>&nbsp;&nbsp;&nbsp;Icons by <a href="http://icons8.com/" target="_blank">Icons8</a>
     </div>
 
+
+
+
+
+    <script src="options.js"></script>
   </body>
-  <script src="scripts/options.js"></script>
 
 </html>

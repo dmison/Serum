@@ -5,11 +5,11 @@ var runSequence = require('run-sequence');
 var del = require('del');
 
 gulp.task('cleanall', function() {
-  return del(['app/app.js', 'temp', 'app/vendor']);
+  return del(['app/app.js', 'temp', 'app/vendor', 'app/options.js']);
 });
 
 gulp.task('build-sequence', function(callback) {
-  runSequence('cleanall', 'react-jsx', 'webpack', 'copystuff', callback);
+  runSequence('cleanall', 'react-jsx', 'webpack', 'webpack-options', 'copystuff', callback);
 });
 
 // [todo] - waiting for githubjs update to 0.10.8 to resolve https://github.com/michael/github/issues/259
@@ -20,16 +20,16 @@ gulp.task('copy-github-js', function(){
 });
 
 gulp.task('copy-bootstrap', function(){
-  gulp.src('node_modules/bootstrap/dist/**/*')
+  return gulp.src('node_modules/bootstrap/dist/**/*')
     .pipe(gulp.dest('app/vendor/bootstrap'));
 });
 
 gulp.task('copy-fontawesome', function(){
 
-  gulp.src('node_modules/font-awesome/css/**/*')
+  return gulp.src('node_modules/font-awesome/css/**/*')
     .pipe(gulp.dest('app/vendor/font-awesome/css'));
 
-  gulp.src('node_modules/font-awesome/fonts/**/*')
+  return gulp.src('node_modules/font-awesome/fonts/**/*')
     .pipe(gulp.dest('app/vendor/font-awesome/fonts'));
 
 });
@@ -45,6 +45,14 @@ gulp.task('webpack', function() {
     .pipe(webpack({output: {filename: 'app.js'}}))
     .pipe(gulp.dest('app'));
 });
+
+gulp.task('webpack-options', function() {
+  return gulp.src('temp/options.js')
+    .pipe(webpack({output: {filename: 'options.js'}}))
+    .pipe(gulp.dest('app'));
+});
+
+
 
 gulp.task('watch', function(){
   gulp.watch(['components/**/*'], ['build-sequence']);
