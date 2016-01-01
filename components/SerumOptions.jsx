@@ -142,12 +142,18 @@
       </div>
 
     </form>
+    <div className='row'>
+      <div className='col-sm-3'>
+        <a className='btn btn-success btn-lg status' onClick={this.saveChanges}>
+          <span className='glyphicon glyphicon-cog' aria-hidden='true'></span> save changes
+        </a>
+      </div>
+      <div className='col-sm-3'>
+        <SerumOptionsStatus status={this.state.status} />
 
-    <a className='btn btn-success btn-lg status' onClick={this.saveChanges}>
-      <span className='glyphicon glyphicon-cog' aria-hidden='true'></span> save changes
-    </a>
+      </div>
+    </div>
 
-    <SerumOptionsStatus status={this.state.status} />
 
   </div>
       )
