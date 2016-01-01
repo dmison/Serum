@@ -3,9 +3,11 @@
   "version": "2.0.0",
   "dependencies": {
     "bootstrap": "^3.3.6",
+    "brace": "^0.7.0",
     "font-awesome": "^4.5.0",
     "moment": "^2.10.6",
     "react": "^0.14.3",
+    "react-ace": "^3.0.0",
     "react-dom": "^0.14.3"
   },
   "devDependencies": {

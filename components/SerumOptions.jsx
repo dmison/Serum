@@ -5,6 +5,9 @@
   var SerumOptionsEntryField = require('./SerumOptionsEntryField');
   var SerumOptionsStatus = require('./SerumOptionsStatus');
 
+  var brace = require('brace');
+  var AceEditor = require('react-ace');
+
   var SerumOptions = React.createClass({
 
     getInitialState:function(){
@@ -96,8 +99,12 @@
 
           <div className='row'>
             <div className='col-sm-6'>
-              <textarea value={this.state.template}  onChange={this.setTemplate}></textarea>
-
+              <AceEditor
+                mode='markdown'
+                theme='github'
+                onChange={this.setTemplate}
+                value={this.state.template}
+                />
               <br/>
               <a id='restoreBtn' className='btn btn-info btn-sm status'>
                 <span className='glyphicon glyphicon-cog' aria-hidden='true'></span> Restore Default Template
@@ -187,8 +194,8 @@
       this.setState({ token: value, status: 'unsaved' });
     },
 
-    setTemplate: function(event){
-      this.setState({ template: event.target.value, status: 'unsaved' });
+    setTemplate: function(value){
+      this.setState({ template: value, status: 'unsaved' });
     },
 
 
