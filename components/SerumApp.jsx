@@ -44,27 +44,36 @@
 
     render: function() {
 
-      console.log('app', this.state);
-      return (
-        <div>
-          <SerumEditor
-            content={this.state.postContent}
-            onChange={this.setContent} />
+      if( this.state.configGitUser === '' ||
+          this.state.configGitRepo === '' ||
+          this.state.configToken === '' ) {
+        return (
+          <div>
+            <SerumPopupError />
+          </div>
+        )
+      } else {
+        return (
+          <div>
+            <SerumEditor
+              content={this.state.postContent}
+              onChange={this.setContent} />
 
-          <DirectorySelector
-            selected={this.state.postDirectory}
-            draftsDir={this.state.configDraftsDir}
-            postsDir={this.state.configPostsDir}
-            onChange={this.setDirectory} />
+            <DirectorySelector
+              selected={this.state.postDirectory}
+              draftsDir={this.state.configDraftsDir}
+              postsDir={this.state.configPostsDir}
+              onChange={this.setDirectory} />
 
-          <SerumFilenameBox
-            onChange={this.setFilename}
-            filename={this.state.postFilename} />
+            <SerumFilenameBox
+              onChange={this.setFilename}
+              filename={this.state.postFilename} />
 
-          <button onClick={this.postArticle}>Post</button>
+            <button onClick={this.postArticle}>Post</button>
+          </div>
+        )
+      }
 
-        </div>
-      )
     },
 
     // ======================================================== BEHAVIOUR
@@ -87,7 +96,7 @@
       // [todo] set posting status
 
       var github = new Github({
-        token: this.state.configToken, // 'bbc5d9e0985c1a05757ba790864076a78d171ceb',
+        token: this.state.configToken,
         auth: 'oauth'
       });
 
@@ -96,13 +105,15 @@
       var path = this.state.postDirectory+'/'+this.state.postFilename;
       var content = this.state.postContent;
       var commitMsg = this.determineCommitMessage(this.state.postDirectory,
-        this.state.configDraftsDir, 
+        this.state.configDraftsDir,
         this.state.configPostsDir);
       var repo = github.getRepo(user, repo);
 
       repo.write('master', path, content, commitMsg, {}, function(err){
         if (err) {
           // [todo] set error status and message
+          console.log('fail');
+
           console.log(err);
         } else {
           console.log('done');
