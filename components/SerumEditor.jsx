@@ -6,7 +6,7 @@
   require('brace/mode/markdown');
   require('brace/theme/github');
 
-  var SerumEditorTest = React.createClass({
+  var SerumEditor = React.createClass({
 
     render: function(){
       return (
@@ -29,6 +29,6 @@
 
   });
 
-  module.exports = SerumEditorTest;
+  module.exports = SerumEditor;
 
 })();

@@ -3,7 +3,8 @@
 
   var moment = require('moment');
 
-  var SerumEditorTest = require('./SerumEditorTest');
+  var SerumPopupError = require('./SerumPopupError');
+  var SerumEditor = require('./SerumEditor');
   var DefaultTemplate = require('./DefaultTemplate');
   var SerumFilenameBox = require('./SerumFilenameBox');
   var DirectorySelector = require('./DirectorySelector');
@@ -46,7 +47,7 @@
       console.log('app', this.state);
       return (
         <div>
-          <SerumEditorTest
+          <SerumEditor
             content={this.state.postContent}
             onChange={this.setContent} />
 
