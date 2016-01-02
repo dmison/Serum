@@ -101,13 +101,14 @@
       });
 
       var user = this.state.configGitUser;
-      var repo = this.state.configGitRepo;
+      var repoName = this.state.configGitRepo;
       var path = this.state.postDirectory+'/'+this.state.postFilename;
       var content = this.state.postContent;
       var commitMsg = this.determineCommitMessage(this.state.postDirectory,
         this.state.configDraftsDir,
         this.state.configPostsDir);
-      var repo = github.getRepo(user, repo);
+
+      var repo = github.getRepo(user, repoName);
 
       repo.write('master', path, content, commitMsg, {}, function(err){
         if (err) {
