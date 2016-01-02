@@ -23,8 +23,9 @@
       )
     },
 
-    updateArticleContent: function(event){
-      this.props.onChange(event.target.value)
+    updateArticleContent: function(content){
+
+      this.props.onChange(content);
     }
 
   });
