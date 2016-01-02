@@ -20,7 +20,7 @@
               wrapEnabled={true}
               />
         </div>
-      )
+      );
     },
 
     updateArticleContent: function(content){

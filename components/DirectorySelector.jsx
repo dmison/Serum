@@ -12,8 +12,8 @@
           <option value={this.props.draftsDir}>{this.props.draftsDir}</option>
           <option value={this.props.postsDir}>{this.props.postsDir}</option>
         </select>
-        )
-        
+      );
+
     },
 
     selectionChanged: function(event){

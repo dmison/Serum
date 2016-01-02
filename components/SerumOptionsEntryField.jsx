@@ -16,7 +16,7 @@
           </p>
         </div>
         </div>
-      )
+      );
     },
 
     textChanged: function(event) {

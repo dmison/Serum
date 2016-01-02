@@ -31,7 +31,7 @@
         configTemplate: DefaultTemplate,
         windowHeight: 800,
         status: 'none'
-      }
+      };
     },
 
     componentWillMount: function(){
@@ -51,7 +51,7 @@
           <div>
             <SerumPopupError />
           </div>
-        )
+        );
       } else {
         return (
           <div>
@@ -71,7 +71,7 @@
 
             <button onClick={this.postArticle}>Post</button>
           </div>
-        )
+        );
       }
 
     },

@@ -10,7 +10,7 @@
       return '> ' + line;
     }).join('\n');
     return blockquote;
-  }
+  };
 
   var processTemplate = function(template, title, date, time, url, quote){
     var content = template;
@@ -23,12 +23,12 @@
 
     return content;
 
-  }
+  };
 
   module.exports = {
     formatFilename: formatFilename,
     formatBlockPost: formatBlockPost,
     processTemplate: processTemplate
-  }
+  };
 
 })();

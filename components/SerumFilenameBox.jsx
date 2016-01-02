@@ -7,7 +7,7 @@
         <div>
           <input onChange={this.textChanged} value={this.props.filename} />
         </div>
-      )
+      );
     },
 
     textChanged: function(event){

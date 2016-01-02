@@ -21,7 +21,7 @@
         token: '',
         template: DefaultTemplate,
         status: ''
-      }
+      };
     },
 
     componentDidMount: function(){
@@ -156,7 +156,7 @@
 
 
   </div>
-      )
+);
     },
 
     saveChanges: function(){
