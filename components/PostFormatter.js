@@ -2,8 +2,7 @@
 
   var formatFilename = function(title, date){
     return (date + '-' + title).replace(/\W+/g, '-') + '.markdown';
-    return filename;
-  }
+  };
 
   var formatBlockPost = function(quote){
     var blockquote = quote.split('\n').map(function(line) {
