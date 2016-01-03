@@ -13,6 +13,7 @@
   "devDependencies": {
     "babel-preset-react": "^6.3.13",
     "del": "^2.2.0",
+    "eslint-plugin-react": "^3.13.1",
     "github-api": "^0.10.7",
     "gulp": "^3.9.0",
     "gulp-babel": "^6.1.1",

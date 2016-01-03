@@ -10,6 +10,6 @@
   '\n' +
   '<<quote>>\n\n';
 
-  module.exports = DefaultTemplate
+  module.exports = DefaultTemplate;
 
 })();

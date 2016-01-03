@@ -1,3 +1,4 @@
+/* global chrome */
 (function(){
   var React = require('react');
   var DefaultTemplate = require('./DefaultTemplate');
@@ -5,7 +6,6 @@
   var SerumOptionsEntryField = require('./SerumOptionsEntryField');
   var SerumOptionsStatus = require('./SerumOptionsStatus');
 
-  var brace = require('brace');
   var AceEditor = require('react-ace');
   require('brace/mode/markdown');
   require('brace/theme/github');
@@ -26,13 +26,13 @@
 
     componentDidMount: function(){
       chrome.storage.sync.get({
-          gitUser: '',
-          gitRepo: '',
-          DraftsDir: '_drafts',
-          postsDir: '_posts',
-          token: '',
-          template: DefaultTemplate
-        },
+        gitUser: '',
+        gitRepo: '',
+        DraftsDir: '_drafts',
+        postsDir: '_posts',
+        token: '',
+        template: DefaultTemplate
+      },
         function(item) {
           this.setState({
             gitUser: item.gitUser,
@@ -206,7 +206,7 @@
 
     setTemplate: function(value){
       this.setState({ template: value, status: 'unsaved' });
-    },
+    }
 
 
   });

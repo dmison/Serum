@@ -1,3 +1,5 @@
+/* global Github, chrome  */
+
 (function() {
   var React = require('react');
 
@@ -82,8 +84,6 @@
     },
 
     setDirectory: function(newDirectory){
-      console.log('setDirectory: ', newDirectory);
-
       this.setState({postDirectory: newDirectory});
     },
 
@@ -121,7 +121,7 @@
           // [todo] set success status and message
         }
 
-     });
+      });
 
     },
 
@@ -144,21 +144,21 @@
     componentDidMount: function() {
 
       chrome.storage.sync.get({
-          gitUser: '',
-          gitRepo: '',
-          draftsDir: '_drafts',
-          postsDir: '_posts',
-          token: '',
-          template: DefaultTemplate
-        },
+        gitUser: '',
+        gitRepo: '',
+        draftsDir: '_drafts',
+        postsDir: '_posts',
+        token: '',
+        template: DefaultTemplate
+      },
         function(item) {
           this.setState({
-              configGitRepo: item.gitRepo,
-              configGitUser: item.gitUser,
-              configDraftsDir: item.draftsDir,
-              configPostsDir: item.postsDir,
-              configToken: item.token,
-              configTemplate: item.template
+            configGitRepo: item.gitRepo,
+            configGitUser: item.gitUser,
+            configDraftsDir: item.draftsDir,
+            configPostsDir: item.postsDir,
+            configToken: item.token,
+            configTemplate: item.template
           });
         }.bind(this));
 
@@ -173,8 +173,8 @@
         }, function(response) {
 
           var today = new moment();
-          date = today.format('YYYY-MM-DD');
-          time = today.format('HH:mm');
+          var date = today.format('YYYY-MM-DD');
+          var time = today.format('HH:mm');
 
           var filename = PostFormatter.formatFilename(response.title, date);
           var content = PostFormatter.processTemplate(this.state.configTemplate, response.title, response.date, response.time, response.url, response.quote);
@@ -198,6 +198,6 @@
 
   });
 
-module.exports = SerumApp;
+  module.exports = SerumApp;
 
 })();

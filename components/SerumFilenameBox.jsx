@@ -11,7 +11,7 @@
     },
 
     textChanged: function(event){
-        this.props.onChange(event.target.value);
+      this.props.onChange(event.target.value);
     }
   });
 

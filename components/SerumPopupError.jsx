@@ -1,10 +1,12 @@
+/* global chrome */
+
 (function(){
   var React = require('react');
 
   var SerumPopupError = React.createClass({
     render: function(){
 
-        return (
+      return (
           <div id="warning" className="panel panel-default panel-danger">
             <div className="panel-heading">
               <h3 className="panel-title"> WARNING: Configuration Missing! </h3>

@@ -5,8 +5,6 @@
   var DirectorySelector = React.createClass({
 
     render: function(){
-      console.log('selector', this.props.draftsDir);
-
       return (
         <select value={this.props.selected} onChange={this.selectionChanged}>
           <option value={this.props.draftsDir}>{this.props.draftsDir}</option>
