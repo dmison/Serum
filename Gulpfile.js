@@ -26,10 +26,10 @@ gulp.task('copy-bootstrap', function(){
 
 gulp.task('copy-fontawesome', function(){
 
-  return gulp.src('node_modules/font-awesome/css/**/*')
+  gulp.src('node_modules/font-awesome/css/**/*')
     .pipe(gulp.dest('app/vendor/font-awesome/css'));
 
-  return gulp.src('node_modules/font-awesome/fonts/**/*')
+  gulp.src('node_modules/font-awesome/fonts/**/*')
     .pipe(gulp.dest('app/vendor/font-awesome/fonts'));
 
 });
