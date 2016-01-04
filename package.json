@@ -6,21 +6,28 @@
     "brace": "^0.7.0",
     "font-awesome": "^4.5.0",
     "moment": "^2.10.6",
-    "react": "^0.14.3",
+    "react": "^0.14.5",
     "react-ace": "^3.0.0",
-    "react-dom": "^0.14.3"
+    "react-dom": "^0.14.5"
   },
   "devDependencies": {
+    "babel-core": "^6.3.26",
     "babel-preset-react": "^6.3.13",
     "del": "^2.2.0",
     "eslint-plugin-react": "^3.13.1",
+    "expect": "^1.13.4",
     "github-api": "^0.10.7",
     "gulp": "^3.9.0",
     "gulp-babel": "^6.1.1",
+    "mocha": "^2.3.4",
+    "react-addons-test-utils": "^0.14.5",
     "run-sequence": "^1.1.5",
     "webpack-stream": "^3.1.0"
   },
   "engines": {
     "node": ">=0.8.0"
+  },
+  "scripts": {
+    "test": "mocha './tests/**/*.spec.js' --compilers js:babel-core/register"
   }
 }
