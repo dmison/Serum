@@ -23,3 +23,58 @@
   padding-bottom: 5px;
   padding-left: 5px;
 }
+
+.controls {
+  padding: 15px 0px 0px 15px !important;
+  margin-bottom: 5px;
+
+}
+
+.post-label {
+  width:80px;
+  /*margin-left:20px;*/
+  padding:0px;
+  font-size:18px;
+}
+
+.post-label label {
+  margin-bottom: 0px;
+  margin-top:2px;
+
+}
+
+.directory-selector {
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.seperator-text {
+  display: inline-block;
+  width: 15px;
+  font-size: 25px;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.filename-box {
+  width: 460px;
+  padding-left: 5px;
+  padding-right: 0px;
+}
+
+.post-button {
+  margin-top: 5px;
+  float: right;
+}
+
+.post-status-panel {
+  padding: 6px;
+  margin-top: 5px;
+  margin-bottom: 0px;
+
+}
+
+.statusView {
+  padding: 0px 20px !important;
+  margin: 0px;
+}

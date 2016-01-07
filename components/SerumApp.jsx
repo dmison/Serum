@@ -10,6 +10,7 @@
   var DefaultTemplate = require('./DefaultTemplate');
   var SerumFilenameBox = require('./SerumFilenameBox');
   var DirectorySelector = require('./DirectorySelector');
+  var SerumPostStatus = require('./SerumPostStatus');
 
   var PostFormatter = require('./PostFormatter');
 
@@ -32,7 +33,8 @@
         configToken: '',
         configTemplate: DefaultTemplate,
         windowHeight: 800,
-        status: 'none'
+        status: '',
+        statusMessage: ''
       };
     },
 
@@ -59,20 +61,36 @@
           <div>
             <SerumEditor
               content={this.state.postContent}
-              onChange={this.setContent} />
+              onChange={this.setContent}
+              parentHeight={this.state.windowHeight}/>
 
-            <DirectorySelector
-              selected={this.state.postDirectory}
-              draftsDir={this.state.configDraftsDir}
-              postsDir={this.state.configPostsDir}
-              onChange={this.setDirectory} />
 
-            <SerumFilenameBox
-              onChange={this.setFilename}
-              filename={this.state.postFilename} />
-
-            <button onClick={this.postArticle}>Post</button>
+            <div className="form-group controls">
+              <div className="row">
+                <div className="col-xs-3 post-label">
+                  <label>Post as:</label>
+                </div>
+                <div className="col-xs-2 directory-selector">
+                  <DirectorySelector
+                    selected={this.state.postDirectory}
+                    draftsDir={this.state.configDraftsDir}
+                    postsDir={this.state.configPostsDir}
+                    onChange={this.setDirectory} />
+                </div>
+                <div className="col-xs-1 seperator-text">/</div>
+                <div className="col-xs-6 filename-box">
+                  <SerumFilenameBox
+                    onChange={this.setFilename}
+                    filename={this.state.postFilename} />
+                </div>
+              </div>
+            </div>
+            <div className="row controls statusView">
+              <SerumPostStatus status={this.state.status} message={this.state.statusMessage} />
+              <button className='btn btn-info btn-md post-button' onClick={this.postArticle}>Post</button>
+            </div>
           </div>
+
         );
       }
 
@@ -93,7 +111,11 @@
 
     postArticle: function(){
 
-      // [todo] set posting status
+      this.setState({
+        status: 'posting',
+        statusMessage: 'Posting...'
+      });
+
 
       var github = new Github({
         token: this.state.configToken,
@@ -112,16 +134,18 @@
 
       repo.write('master', path, content, commitMsg, {}, function(err){
         if (err) {
-          // [todo] set error status and message
-          console.log('fail');
-
-          console.log(err);
+          this.setState({
+            status: 'error',
+            statusMessage: 'ERROR ' + err.request.status + ':' + err.request.statusText
+          });
         } else {
-          console.log('done');
-          // [todo] set success status and message
+          this.setState({
+            status: 'success',
+            statusMessage: 'SUCCESS: Post committed successfully'
+          });
         }
 
-      });
+      }.bind(this));
 
     },
 
@@ -177,7 +201,7 @@
           var time = today.format('HH:mm');
 
           var filename = PostFormatter.formatFilename(response.title, date);
-          var content = PostFormatter.processTemplate(this.state.configTemplate, response.title, response.date, response.time, response.url, response.quote);
+          var content = PostFormatter.processTemplate(this.state.configTemplate, response.title, date, time, response.url, response.quote);
 
           this.setState({
             postQuote: response.quote,

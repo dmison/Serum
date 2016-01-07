@@ -6,7 +6,7 @@
 
     render: function(){
       return (
-        <select value={this.props.selected} onChange={this.selectionChanged}>
+        <select className='form-control' value={this.props.selected} onChange={this.selectionChanged}>
           <option value={this.props.draftsDir}>{this.props.draftsDir}</option>
           <option value={this.props.postsDir}>{this.props.postsDir}</option>
         </select>

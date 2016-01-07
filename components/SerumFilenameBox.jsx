@@ -4,9 +4,7 @@
   var SerumFilenameBox = React.createClass({
     render: function(){
       return (
-        <div>
-          <input onChange={this.textChanged} value={this.props.filename} />
-        </div>
+        <input className='form-control' onChange={this.textChanged} value={this.props.filename} />
       );
     },
 
