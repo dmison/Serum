@@ -48,6 +48,45 @@
     render: function(){
       return (
         <div>
+
+          <div className='row'>
+
+            <div className='col-sm-8'>
+
+              <div id='welcome'>
+                <p>
+                <b>Welcome to Serum </b>, the easiest way to link post to
+                our Github-hosted Jekyll blog.
+                </p>
+                <p>
+                Before you can start using <b>Serum</b> you have to configure
+                at least your Github details.
+                </p>
+                <p><a href='release_notes.html' target='_blank'>Read Release Notes</a>.</p>
+              </div>
+            </div>
+
+            <div className='col-sm-2'>
+              <a
+                className='btn btn-success btn-lg status'
+                onClick={this.saveChanges}>
+                <span
+                  className='glyphicon glyphicon-cog'
+                  aria-hidden='true'>
+                </span> save changes
+              </a>
+            </div>
+            <div className='col-sm-2'>
+              <SerumOptionsStatus status={this.state.status} />
+
+            </div>
+
+          </div>
+
+
+
+
+
           <form className='form-horizontal'>
 
             <div className='panel panel-default'>
@@ -91,7 +130,7 @@
 
         </div>
       </div>
-
+</form>
 
       <div className='panel panel-default'>
         <div className='panel-heading'>
@@ -100,7 +139,7 @@
         <div className='panel-body'>
 
           <div className='row'>
-            <div className='col-sm-6'>
+            <div className='col-md-6'>
               <AceEditor
                 mode='markdown'
                 theme='github'
@@ -108,15 +147,16 @@
                 value={this.state.template}
                 editorProps={{$blockScrolling: true}}
                 wrapEnabled={true}
+                height='300px'
+                width='auto'
                 />
               <br/>
               <a id='restoreBtn' className='btn btn-info btn-sm status'>
                 <span className='glyphicon glyphicon-cog' aria-hidden='true'></span> Restore Default Template
               </a>
-              <br/>
-              <br/>
             </div>
-            <div className='col-sm-5'>
+
+            <div className='col-md-6'>
               <p>
                 This is the template for a new post. It contains several placeholders indicated by the by <b>&lt;&lt;</b> and <b>&gt;&gt;</b> characters. These characters are replaced by the appropriate values for the page you are on when you activate
                 Serum.
@@ -141,18 +181,7 @@
         </div>
       </div>
 
-    </form>
-    <div className='row'>
-      <div className='col-sm-3'>
-        <a className='btn btn-success btn-lg status' onClick={this.saveChanges}>
-          <span className='glyphicon glyphicon-cog' aria-hidden='true'></span> save changes
-        </a>
-      </div>
-      <div className='col-sm-3'>
-        <SerumOptionsStatus status={this.state.status} />
 
-      </div>
-    </div>
 
 
   </div>
