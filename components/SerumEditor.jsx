@@ -8,17 +8,21 @@
   var SerumEditor = React.createClass({
 
     render: function(){
+      var height = 450;
+      if(this.props.parentHeight < 650){
+        height = this.props.parentHeight - 150;
+      }
       return (
-        <div>
-            <AceEditor
-              mode='markdown'
-              theme='github'
-              onChange={this.updateArticleContent}
-              value={this.props.content}
-              editorProps={{$blockScrolling: true}}
-              wrapEnabled={true}
-              />
-        </div>
+        <AceEditor
+          mode='markdown'
+          theme='github'
+          onChange={this.updateArticleContent}
+          value={this.props.content}
+          editorProps={{$blockScrolling: true}}
+          wrapEnabled={true}
+          width='auto'
+          height={height}
+          />
       );
     },
 
