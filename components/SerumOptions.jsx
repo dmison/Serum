@@ -16,6 +16,7 @@
       return {
         gitRepo: '',
         gitUser: '',
+        gitBranch: 'master',
         draftsDir: '_drafts',
         postsDir: '_posts',
         token: '',
@@ -28,6 +29,7 @@
       chrome.storage.sync.get({
         gitUser: '',
         gitRepo: '',
+        gitBranch: 'master',
         DraftsDir: '_drafts',
         postsDir: '_posts',
         token: '',
@@ -37,6 +39,7 @@
           this.setState({
             gitUser: item.gitUser,
             gitRepo: item.gitRepo,
+            gitBranch: item.gitBranch,
             DraftsDir: item.DraftsDir,
             postsDir: item.postsDir,
             token: item.token,
@@ -106,6 +109,12 @@
             description='The name of the repository with your Jekyll site source'
             onChange={this.setGitRepo} />
 
+            <SerumOptionsEntryField
+              label='Repo Branch'
+              configValue={this.state.gitBranch}
+              description='The name of the branch that contains your Jekyll site source'
+              onChange={this.setGitBranch} />
+
           <SerumOptionsEntryField
             label='Drafts Directory'
             configValue={this.state.draftsDir}
@@ -123,7 +132,6 @@
             configValue={this.state.token}
             description='Your Github Access Token'
             onChange={this.setToken} />
-
 
         </div>
       </div>
@@ -178,9 +186,6 @@
         </div>
       </div>
 
-
-
-
   </div>
 );
     },
@@ -191,6 +196,7 @@
       chrome.storage.sync.set({
         gitUser: this.state.gitUser,
         gitRepo: this.state.gitRepo,
+        gitBranch: this.state.gitBranch,
         DraftsDir: this.state.draftsDir,
         postsDir: this.state.postsDir,
         token: this.state.token,
@@ -205,13 +211,16 @@
           this.setState({ status: ''});
         }.bind(this), 2000);
 
-
       }.bind(this));
 
     },
 
     setGitRepo: function(value){
       this.setState({ gitRepo: value, status: 'unsaved' });
+    },
+
+    setGitBranch: function(value){
+      this.setState({ gitBranch: value, status: 'unsaved' });
     },
 
     setGitUser: function(value){
@@ -234,12 +243,8 @@
       this.setState({ template: value, status: 'unsaved' });
     }
 
-
   });
 
   module.exports = SerumOptions;
 
-
 })();
-
-// cols='80' rows='19'

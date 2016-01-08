@@ -27,6 +27,7 @@
         postFilename: '',
         postDirectory: '',
         configGitRepo: '',
+        configGitBranch: '',
         configGitUser: '',
         configDraftsDir: '_drafts',
         configPostsDir: '_posts',
@@ -116,7 +117,6 @@
         statusMessage: 'Posting...'
       });
 
-
       var github = new Github({
         token: this.state.configToken,
         auth: 'oauth'
@@ -124,6 +124,7 @@
 
       var user = this.state.configGitUser;
       var repoName = this.state.configGitRepo;
+      var branch = this.state.configGitBranch;
       var path = this.state.postDirectory+'/'+this.state.postFilename;
       var content = this.state.postContent;
       var commitMsg = this.determineCommitMessage(this.state.postDirectory,
@@ -132,7 +133,7 @@
 
       var repo = github.getRepo(user, repoName);
 
-      repo.write('master', path, content, commitMsg, {}, function(err){
+      repo.write(branch, path, content, commitMsg, {}, function(err){
         if (err) {
           this.setState({
             status: 'error',
