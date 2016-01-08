@@ -51,7 +51,7 @@
 
           <div className='row'>
 
-            <div className='col-sm-8'>
+            <div className='col-sm-6'>
 
               <div id='welcome'>
                 <p>
@@ -66,19 +66,16 @@
               </div>
             </div>
 
-            <div className='col-sm-2'>
+            <div className='col-sm-6' >
               <a
-                className='btn btn-success btn-lg status'
+                className='btn btn-success status'
                 onClick={this.saveChanges}>
                 <span
                   className='glyphicon glyphicon-cog'
                   aria-hidden='true'>
                 </span> save changes
               </a>
-            </div>
-            <div className='col-sm-2'>
               <SerumOptionsStatus status={this.state.status} />
-
             </div>
 
           </div>
