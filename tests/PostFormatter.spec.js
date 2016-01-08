@@ -4,7 +4,7 @@
 
   var PostFormatter = require('../components/PostFormatter');
 
-  describe('PostFormatter', () => {
+  describe('PostFormatter', function(){
 
     it('filename is created correctly from date and title', () => {
       var date = '2016-01-03';
