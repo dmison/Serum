@@ -3,7 +3,7 @@ temp
 .tmp
 dist
 .sass-cache
-app/bower_components
-test/bower_components
-package
 .DS_Store
+app/vendor
+app/app.js
+app/options.js

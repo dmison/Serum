@@ -6,7 +6,8 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
     sendResponse({
       quote: window.getSelection().toString(),
       title: document.title.toString(),
-      url: document.location.toString()
+      url: document.location.toString(),
+      height: window.innerHeight
     });
   }
   else {
