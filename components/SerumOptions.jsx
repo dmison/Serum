@@ -116,6 +116,21 @@
               onChange={this.setGitBranch} />
 
           <SerumOptionsEntryField
+            label='Access Token'
+            configValue={this.state.token}
+            description='Your Github Access Token'
+            onChange={this.setToken} />
+
+        </div>
+      </div>
+
+      <div className='panel panel-default'>
+        <div className='panel-heading'>
+          <h3 className='panel-title'>Posting Configuration</h3>
+        </div>
+
+        <div className='panel-body'>
+          <SerumOptionsEntryField
             label='Drafts Directory'
             configValue={this.state.draftsDir}
             description='The sub-directory of your repo where draft posts are kept. Usually _drafts'
@@ -127,14 +142,9 @@
             description='The sub-directory of your repo where published posts are kept. Usually _posts'
             onChange={this.setPostsDir} />
 
-          <SerumOptionsEntryField
-            label='Access Token'
-            configValue={this.state.token}
-            description='Your Github Access Token'
-            onChange={this.setToken} />
-
         </div>
       </div>
+
 </form>
 
       <div className='panel panel-default'>
