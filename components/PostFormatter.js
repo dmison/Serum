@@ -1,7 +1,10 @@
 (function(){
 
-  var formatFilename = function(title, date){
-    return (date + '-' + title).replace(/\W+/g, '-') + '.markdown';
+  var formatFilename = function(title, date, extension){
+    //if extension starts with a . then remove the .
+    extension = extension.replace(/^\./g, '');
+
+    return (date + '-' + title).replace(/\W+/g, '-') + '.'+extension;
   };
 
   var formatBlockPost = function(quote){

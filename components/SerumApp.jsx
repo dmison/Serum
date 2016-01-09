@@ -31,6 +31,7 @@
         configGitUser: '',
         configDraftsDir: '_drafts',
         configPostsDir: '_posts',
+        configExtension: 'markdown',
         configToken: '',
         configTemplate: DefaultTemplate,
         windowHeight: 800,
@@ -173,6 +174,7 @@
         gitRepo: '',
         draftsDir: '_drafts',
         postsDir: '_posts',
+        extension: 'markdown',
         gitBranch: 'master',
         token: '',
         template: DefaultTemplate
@@ -183,6 +185,7 @@
             configGitUser: item.gitUser,
             configDraftsDir: item.draftsDir,
             configPostsDir: item.postsDir,
+            configExtension: item.extension,
             configGitBranch: item.gitBranch,
             configToken: item.token,
             configTemplate: item.template
@@ -203,7 +206,9 @@
           var date = today.format('YYYY-MM-DD');
           var time = today.format('HH:mm');
 
-          var filename = PostFormatter.formatFilename(response.title, date);
+          var extension = this.state.configExtension;
+
+          var filename = PostFormatter.formatFilename(response.title, date, extension);
           var content = PostFormatter.processTemplate(this.state.configTemplate, response.title, date, time, response.url, response.quote);
 
           this.setState({

@@ -19,6 +19,7 @@
         gitBranch: 'master',
         draftsDir: '_drafts',
         postsDir: '_posts',
+        extension: 'markdown',
         token: '',
         template: DefaultTemplate,
         status: ''
@@ -30,8 +31,9 @@
         gitUser: '',
         gitRepo: '',
         gitBranch: 'master',
-        DraftsDir: '_drafts',
+        draftsDir: '_drafts',
         postsDir: '_posts',
+        extension: 'markdown',
         token: '',
         template: DefaultTemplate
       },
@@ -40,8 +42,9 @@
             gitUser: item.gitUser,
             gitRepo: item.gitRepo,
             gitBranch: item.gitBranch,
-            DraftsDir: item.DraftsDir,
+            draftsDir: item.draftsDir,
             postsDir: item.postsDir,
+            extension: item.extension,
             token: item.token,
             template: item.template
           });
@@ -142,6 +145,13 @@
             description='The sub-directory of your repo where published posts are kept. Usually _posts'
             onChange={this.setPostsDir} />
 
+            <SerumOptionsEntryField
+              label='File extension'
+              configValue={this.state.extension}
+              description='The file extension to use for each post.'
+              onChange={this.setExtension} />
+
+
         </div>
       </div>
 
@@ -209,6 +219,7 @@
         gitBranch: this.state.gitBranch,
         DraftsDir: this.state.draftsDir,
         postsDir: this.state.postsDir,
+        extension: this.state.extension,
         token: this.state.token,
         template: this.state.template
       }, function() {
@@ -243,6 +254,10 @@
 
     setPostsDir: function(value){
       this.setState({ postsDir: value, status: 'unsaved' });
+    },
+
+    setExtension: function(value){
+      this.setState({ extension: value, status: 'unsaved' });
     },
 
     setToken: function(value){
