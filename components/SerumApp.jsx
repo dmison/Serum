@@ -27,7 +27,7 @@
         postFilename: '',
         postDirectory: '',
         configGitRepo: '',
-        configGitBranch: '',
+        configGitBranch: 'master',
         configGitUser: '',
         configDraftsDir: '_drafts',
         configPostsDir: '_posts',
@@ -173,6 +173,7 @@
         gitRepo: '',
         draftsDir: '_drafts',
         postsDir: '_posts',
+        gitBranch: 'master',
         token: '',
         template: DefaultTemplate
       },
@@ -182,6 +183,7 @@
             configGitUser: item.gitUser,
             configDraftsDir: item.draftsDir,
             configPostsDir: item.postsDir,
+            configGitBranch: item.gitBranch,
             configToken: item.token,
             configTemplate: item.template
           });
