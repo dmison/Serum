@@ -3,14 +3,15 @@ var babel = require('gulp-babel');
 var webpack = require('webpack-stream');
 var runSequence = require('run-sequence');
 var del = require('del');
+var zip = require('gulp-zip');
+
+var versionNumber = require('./app/manifest.json').version;
+
 
 gulp.task('cleanall', function() {
   return del(['app/app.js', 'temp', 'app/vendor', 'app/options.js']);
 });
 
-gulp.task('build-sequence', function(callback) {
-  runSequence('cleanall', 'react-jsx', 'webpack', 'webpack-options', 'copystuff', callback);
-});
 
 // [todo] - waiting for githubjs update to 0.10.8 to resolve https://github.com/michael/github/issues/259
 
@@ -52,6 +53,11 @@ gulp.task('webpack-options', function() {
     .pipe(gulp.dest('app'));
 });
 
+gulp.task('package', function(){
+  return gulp.src('app/**/*')
+    .pipe(zip('Serum-'+versionNumber+'.zip'))
+    .pipe(gulp.dest('.'));
+});
 
 
 gulp.task('watch', function(){
@@ -60,4 +66,12 @@ gulp.task('watch', function(){
 
 gulp.task('copystuff', ['copy-github-js','copy-bootstrap', 'copy-fontawesome']);
 
+gulp.task('build-sequence', function(callback) {
+  runSequence('cleanall', 'react-jsx', 'webpack', 'webpack-options', 'copystuff', callback);
+});
+
 gulp.task('default', ['build-sequence', 'watch']);
+
+gulp.task('dist', function(callback){
+  runSequence('build-sequence', 'package', callback);
+});
