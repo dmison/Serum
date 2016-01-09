@@ -21,7 +21,7 @@
           editorProps={{$blockScrolling: true}}
           wrapEnabled={true}
           width='auto'
-          height={height}
+          height={''+height+'px'}
           />
       );
     },
