@@ -1,5 +1,4 @@
 var gulp = require('gulp');
-var babel = require('gulp-babel');
 var webpack = require('webpack-stream');
 var runSequence = require('run-sequence');
 var del = require('del');
@@ -35,22 +34,18 @@ gulp.task('copy-fontawesome', function(){
 
 });
 
-gulp.task('react-jsx', function() {
-  return gulp.src('components/**.*')
-    .pipe(babel({'presets': ['react']}))
-    .pipe(gulp.dest('temp'));
+// webpack the popup app
+gulp.task('webpack-popup', function() {
+  return gulp.src('components/app.jsx')
+  .pipe(webpack( require('./popup-webpack.config.js') ))
+  .pipe(gulp.dest('app/'));
 });
 
-gulp.task('webpack', function() {
-  return gulp.src('temp/app.js')
-    .pipe(webpack({output: {filename: 'app.js'}}))
-    .pipe(gulp.dest('app'));
-});
-
+// webpack the options app
 gulp.task('webpack-options', function() {
-  return gulp.src('temp/options.js')
-    .pipe(webpack({output: {filename: 'options.js'}}))
-    .pipe(gulp.dest('app'));
+  return gulp.src('components/options.jsx')
+  .pipe(webpack( require('./options-webpack.config.js') ))
+  .pipe(gulp.dest('app/'));
 });
 
 gulp.task('package', function(){
@@ -67,7 +62,7 @@ gulp.task('watch', function(){
 gulp.task('copystuff', ['copy-github-js','copy-bootstrap', 'copy-fontawesome']);
 
 gulp.task('build-sequence', function(callback) {
-  runSequence('cleanall', 'react-jsx', 'webpack', 'webpack-options', 'copystuff', callback);
+  runSequence('cleanall', 'webpack-options', 'webpack-popup', 'copystuff', callback);
 });
 
 gulp.task('default', ['build-sequence', 'watch']);
