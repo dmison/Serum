@@ -1,10 +1,14 @@
-var path = require('path');
+const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
-  entry: path.join(__dirname, 'components/app.jsx'),
+  entry: {
+    'options' : './components/options.jsx',
+    'app' : './components/app.jsx',
+  },
   output: {
     path: path.join(__dirname, '/app/'),
-    filename: 'app.js',
+    filename: '[name].js',
     publicPath: '/'
   },
 

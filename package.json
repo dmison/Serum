@@ -15,21 +15,28 @@
     "babel-loader": "^6.2.2",
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
-    "del": "^2.2.0",
+    "bestzip": "^1.1.3",
+    "cross-zip-cli": "^1.0.0",
     "eslint-plugin-react": "^3.13.1",
     "expect": "^1.13.4",
     "github-api": "^0.10.7",
-    "gulp": "^3.9.0",
-    "gulp-zip": "^3.0.2",
     "mocha": "^2.3.4",
     "react-addons-test-utils": "^0.14.5",
-    "run-sequence": "^1.1.5",
-    "webpack-stream": "^3.1.0"
+    "rimraf": "^2.5.4",
+    "webpack": "^1.13.3"
   },
   "engines": {
     "node": ">=0.8.0"
   },
   "scripts": {
-    "test": "mocha './tests/**/*.spec.js' --compilers js:babel-core/register"
+    "test": "mocha './tests/**/*.spec.js' --compilers js:babel-core/register",
+    "start": "npm run cleanall; npm run copy-assets; webpack --progress --colors --watch",
+    "cleanall": "rimraf app/app.js app/options.js app/vendor",
+    "package": "cd app; bestzip ../Serum-X.Y.Z.zip *; cd ..",
+    "build": "npm run cleanall; webpack; npm run copy-assets; npm run package",
+    "copy-assets": "mkdir -p app/vendor; npm run copy-github; npm run copy-bootstrap; npm run copy-fontawesome; npm run copy-github",
+    "copy-github": "cp node_modules/github-api/github.js app/vendor/",
+    "copy-bootstrap": "mkdir -p app/vendor/bootstrap; cp -Rf node_modules/bootstrap/dist/* app/vendor/bootstrap",
+    "copy-fontawesome": "mkdir -p app/vendor/font-awesome/fonts; mkdir -p app/vendor/font-awesome/css; cp -Rf node_modules/font-awesome/css/* app/vendor/font-awesome/css; cp -Rf node_modules/font-awesome/fonts/* app/vendor/font-awesome/fonts;"
   }
 }
