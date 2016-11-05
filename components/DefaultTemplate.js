@@ -4,6 +4,7 @@ title: "<<title>>"
 date: <<date>> <<time>>
 link: <<url>>
 ---
+
 [<<title>>](<<url>>)
 
 <<quote>>`;
