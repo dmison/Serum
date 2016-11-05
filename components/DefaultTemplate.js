@@ -1,11 +1,11 @@
-const DefaultTemplate = '---\n' +
-  'layout: post\n' +
-  'title: "<<title>>"\n' +
-  'date: <<date>> <<time>>\n' +
-  'link: <<url>>\n' +
-  '---\n\n' +
-  '[<<title>>](<<url>>)\n' +
-  '\n' +
-  '<<quote>>\n\n';
+const DefaultTemplate = `---
+layout: post
+title: "<<title>>"
+date: <<date>> <<time>>
+link: <<url>>
+---
+[<<title>>](<<url>>)
+
+<<quote>>`;
 
 module.exports = DefaultTemplate;
