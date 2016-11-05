@@ -176,7 +176,7 @@ const SerumOptions = React.createClass({
               width='auto'
               />
             <br/>
-            <a id='restoreBtn' className='btn btn-info btn-sm status'>
+            <a id='restoreBtn' className='btn btn-info btn-sm status' onClick={()=>{ this.setTemplate(DefaultTemplate);}}>
               <span className='glyphicon glyphicon-cog' aria-hidden='true'></span> Restore Default Template
             </a>
           </div>
