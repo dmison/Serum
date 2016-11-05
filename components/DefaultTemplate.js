@@ -1,6 +1,4 @@
-(function(){
-
-  var DefaultTemplate = '---\n' +
+var DefaultTemplate = '---\n' +
   'layout: post\n' +
   'title: "<<title>>"\n' +
   'date: <<date>> <<time>>\n' +
@@ -10,6 +8,4 @@
   '\n' +
   '<<quote>>\n\n';
 
-  module.exports = DefaultTemplate;
-
-})();
+module.exports = DefaultTemplate;
