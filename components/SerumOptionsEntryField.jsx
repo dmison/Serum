@@ -1,6 +1,6 @@
-var React = require('react');
+const React = require('react');
 
-var SerumOptionsEntryField = React.createClass({
+const SerumOptionsEntryField = React.createClass({
 
   render: function() {
     return (

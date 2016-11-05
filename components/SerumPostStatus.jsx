@@ -1,7 +1,7 @@
-var React = require('react');
+const React = require('react');
 
-var SerumPostStatus = (props) => {
-  var output = <label></label>;
+const SerumPostStatus = (props) => {
+  const output = <label></label>;
 
   if (props.status === 'error'){
     return (

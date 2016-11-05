@@ -1,8 +1,8 @@
 /* global chrome */
 
-var React = require('react');
+const React = require('react');
 
-var SerumPopupError = React.createClass({
+const SerumPopupError = React.createClass({
   render: function(){
 
     return (

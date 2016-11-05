@@ -4,7 +4,7 @@ import AceEditor from 'react-ace';
 import 'brace/mode/markdown';
 import 'brace/theme/github';
 
-var SerumEditor = React.createClass({
+const SerumEditor = React.createClass({
 
   render: function(){
     var height = 450;

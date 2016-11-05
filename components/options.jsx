@@ -1,6 +1,6 @@
-var ReactDOM = require('react-dom');
-var React = require('react');
+const ReactDOM = require('react-dom');
+const React = require('react');
 
-var SerumOptions = require('./SerumOptions');
+const SerumOptions = require('./SerumOptions');
 
 ReactDOM.render( <SerumOptions />, document.getElementById('app') );

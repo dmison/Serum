@@ -1,4 +1,4 @@
-var DefaultTemplate = '---\n' +
+const DefaultTemplate = '---\n' +
   'layout: post\n' +
   'title: "<<title>>"\n' +
   'date: <<date>> <<time>>\n' +

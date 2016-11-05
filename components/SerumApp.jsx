@@ -1,19 +1,19 @@
 /* global Github, chrome  */
 
-var React = require('react');
+const React = require('react');
 
-var moment = require('moment');
+const moment = require('moment');
 
-var SerumPopupError = require('./SerumPopupError');
-var SerumEditor = require('./SerumEditor');
-var DefaultTemplate = require('./DefaultTemplate');
-var SerumFilenameBox = require('./SerumFilenameBox');
-var DirectorySelector = require('./DirectorySelector');
-var SerumPostStatus = require('./SerumPostStatus');
+const SerumPopupError = require('./SerumPopupError');
+const SerumEditor = require('./SerumEditor');
+const DefaultTemplate = require('./DefaultTemplate');
+const SerumFilenameBox = require('./SerumFilenameBox');
+const DirectorySelector = require('./DirectorySelector');
+const SerumPostStatus = require('./SerumPostStatus');
 
-var PostFormatter = require('./PostFormatter');
+const PostFormatter = require('./PostFormatter');
 
-var SerumApp = React.createClass({
+const SerumApp = React.createClass({
 
   getInitialState: function() {
     return {
@@ -117,21 +117,21 @@ var SerumApp = React.createClass({
       statusMessage: 'Posting...'
     });
 
-    var github = new Github({
+    const github = new Github({
       token: this.state.configToken,
       auth: 'oauth'
     });
 
-    var user = this.state.configGitUser;
-    var repoName = this.state.configGitRepo;
-    var branch = this.state.configGitBranch;
-    var path = this.state.postDirectory+'/'+this.state.postFilename;
-    var content = this.state.postContent;
-    var commitMsg = this.determineCommitMessage(this.state.postDirectory,
+    const user = this.state.configGitUser;
+    const repoName = this.state.configGitRepo;
+    const branch = this.state.configGitBranch;
+    const path = this.state.postDirectory+'/'+this.state.postFilename;
+    const content = this.state.postContent;
+    const commitMsg = this.determineCommitMessage(this.state.postDirectory,
       this.state.configDraftsDir,
       this.state.configPostsDir);
 
-    var repo = github.getRepo(user, repoName);
+    const repo = github.getRepo(user, repoName);
 
     repo.write(branch, path, content, commitMsg, {}, function(err){
       if (err) {
@@ -201,14 +201,14 @@ var SerumApp = React.createClass({
         method: 'getSelection'
       }, function(response) {
 
-        var today = new moment();
-        var date = today.format('YYYY-MM-DD');
-        var time = today.format('HH:mm');
+        const today = new moment();
+        const date = today.format('YYYY-MM-DD');
+        const time = today.format('HH:mm');
 
-        var extension = this.state.configExtension;
+        const extension = this.state.configExtension;
 
-        var filename = PostFormatter.formatFilename(response.title, date, extension);
-        var content = PostFormatter.processTemplate(this.state.configTemplate, response.title, date, time, response.url, response.quote);
+        const filename = PostFormatter.formatFilename(response.title, date, extension);
+        const content = PostFormatter.processTemplate(this.state.configTemplate, response.title, date, time, response.url, response.quote);
 
         this.setState({
           postQuote: response.quote,

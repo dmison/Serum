@@ -1,6 +1,6 @@
-var React = require('react');
+const React = require('react');
 
-var DirectorySelector = React.createClass({
+const DirectorySelector = React.createClass({
 
   render: function(){
     return (

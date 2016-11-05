@@ -5,12 +5,12 @@ import AceEditor from 'react-ace';
 import 'brace/mode/markdown';
 import 'brace/theme/github';
 
-var DefaultTemplate = require('./DefaultTemplate');
+const DefaultTemplate = require('./DefaultTemplate');
 
-var SerumOptionsEntryField = require('./SerumOptionsEntryField');
-var SerumOptionsStatus = require('./SerumOptionsStatus');
+const SerumOptionsEntryField = require('./SerumOptionsEntryField');
+const SerumOptionsStatus = require('./SerumOptionsStatus');
 
-var SerumOptions = React.createClass({
+const SerumOptions = React.createClass({
 
   getInitialState:function(){
     return {

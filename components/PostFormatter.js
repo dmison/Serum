@@ -1,18 +1,18 @@
-var formatFilename = function(title, date, extension){
+const formatFilename = function(title, date, extension){
   //if extension starts with a . then remove the .
   extension = extension.replace(/^\./g, '');
 
   return (date + '-' + title).replace(/\W+/g, '-') + '.'+extension;
 };
 
-var formatBlockPost = function(quote){
-  var blockquote = quote.split('\n').map(function(line) {
+const formatBlockPost = function(quote){
+  const blockquote = quote.split('\n').map(function(line) {
     return '> ' + line;
   }).join('\n');
   return blockquote;
 };
 
-var processTemplate = function(template, title, date, time, url, quote){
+const processTemplate = function(template, title, date, time, url, quote){
   var content = template;
 
   content = content.replace(/<<title>>/g, title);
