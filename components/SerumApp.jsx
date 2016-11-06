@@ -3,6 +3,7 @@
 const React = require('react');
 
 const moment = require('moment');
+const Github = require('github-api');
 
 const SerumPopupError = require('./SerumPopupError');
 const SerumEditor = require('./SerumEditor');
@@ -133,20 +134,17 @@ const SerumApp = React.createClass({
 
     const repo = github.getRepo(user, repoName);
 
-    repo.write(branch, path, content, commitMsg, {}, function(err){
-      if (err) {
-        this.setState({
-          status: 'error',
-          statusMessage: 'ERROR ' + err.request.status + ':' + err.request.statusText
-        });
-      } else {
-        this.setState({
-          status: 'success',
-          statusMessage: 'SUCCESS: Post committed successfully'
-        });
-      }
-
-    }.bind(this));
+    repo.writeFile(branch, path, content, commitMsg, {}).then(()=>{
+      this.setState({
+        status: 'success',
+        statusMessage: 'SUCCESS: Post committed successfully'
+      });
+    }).catch((err)=>{
+      this.setState({
+        status: 'error',
+        statusMessage: 'ERROR ' + err.response.status + ':' + err.response.statusText
+      });
+    });
 
   },
 

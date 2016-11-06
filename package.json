@@ -5,6 +5,7 @@
     "bootstrap": "^3.3.6",
     "brace": "^0.7.0",
     "font-awesome": "^4.5.0",
+    "github-api": "^2.3.0",
     "moment": "^2.10.6",
     "react": "^0.14.5",
     "react-ace": "^3.0.0",
@@ -19,7 +20,6 @@
     "cross-zip-cli": "^1.0.0",
     "eslint-plugin-react": "^3.13.1",
     "expect": "^1.13.4",
-    "github-api": "^0.10.7",
     "mocha": "^2.3.4",
     "react-addons-test-utils": "^0.14.5",
     "rimraf": "^2.5.4",
@@ -34,8 +34,7 @@
     "cleanall": "rimraf app/app.js app/options.js app/vendor",
     "package": "cd app; bestzip ../Serum-X.Y.Z.zip *; cd ..",
     "build": "npm run cleanall; webpack; npm run copy-assets; npm run package",
-    "copy-assets": "mkdir -p app/vendor; npm run copy-github; npm run copy-bootstrap; npm run copy-fontawesome; npm run copy-github",
-    "copy-github": "cp node_modules/github-api/github.js app/vendor/",
+    "copy-assets": "mkdir -p app/vendor; npm run copy-bootstrap; npm run copy-fontawesome",
     "copy-bootstrap": "mkdir -p app/vendor/bootstrap; cp -Rf node_modules/bootstrap/dist/* app/vendor/bootstrap",
     "copy-fontawesome": "mkdir -p app/vendor/font-awesome/fonts; mkdir -p app/vendor/font-awesome/css; cp -Rf node_modules/font-awesome/css/* app/vendor/font-awesome/css; cp -Rf node_modules/font-awesome/fonts/* app/vendor/font-awesome/fonts;"
   }
