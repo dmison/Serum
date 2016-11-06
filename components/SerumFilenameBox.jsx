@@ -1,15 +1,9 @@
 const React = require('react');
 
-const SerumFilenameBox = React.createClass({
-  render: function(){
-    return (
-      <input className='form-control' onChange={this.textChanged} value={this.props.filename} />
-    );
-  },
-
-  textChanged: function(event){
-    this.props.onChange(event.target.value);
-  }
-});
+const SerumFilenameBox = (props)=>{
+  return (
+    <input className='form-control' onChange={ (event)=>{ props.onChange(event.target.value); } } value={props.filename} />
+  );
+};
 
 module.exports = SerumFilenameBox;

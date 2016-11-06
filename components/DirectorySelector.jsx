@@ -1,21 +1,12 @@
 const React = require('react');
 
-const DirectorySelector = React.createClass({
-
-  render: function(){
-    return (
-      <select className='form-control' value={this.props.selected} onChange={this.selectionChanged}>
-        <option value={this.props.draftsDir}>{this.props.draftsDir}</option>
-        <option value={this.props.postsDir}>{this.props.postsDir}</option>
-      </select>
-    );
-
-  },
-
-  selectionChanged: function(event){
-    this.props.onChange(event.target.value);
-  }
-
-});
+const DirectorySelector = (props) => {
+  return (
+    <select className='form-control' value={props.selected} onChange={(event)=>{ props.onChange(event.target.value); }}>
+      <option value={props.draftsDir}>{props.draftsDir}</option>
+      <option value={props.postsDir}>{props.postsDir}</option>
+    </select>
+  );
+};
 
 module.exports = DirectorySelector;
