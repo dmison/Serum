@@ -1,20 +1,21 @@
 'use strict';
 
-chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
+chrome.extension.onMessage.addListener(function(request, sender) {
+
+  let response = {
+    quote: '',
+    title: '',
+    url: ''
+  };
 
   if (request.method === 'getSelection'){
-    sendResponse({
+    response = {
       quote: window.getSelection().toString(),
       title: document.title.toString(),
       url: document.location.toString(),
       height: window.innerHeight
-    });
+    };
   }
-  else {
-    sendResponse({
-      quote: '',
-      title: '',
-      url: ''
-    }); // snub them.
-  }
+  chrome.runtime.sendMessage(response);
+
 });

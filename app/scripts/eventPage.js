@@ -15,13 +15,17 @@ chrome.runtime.onInstalled.addListener(function(details) {
   }
 });
 
-chrome.browserAction.onClicked.addListener(function(tab) {
 
-  chrome.tabs.sendRequest(
-    tab.id, {
-      method: 'getSelection'
-    },
-    function(response) {
-      sendServiceRequest(response.data);
-    });
+chrome.browserAction.onClicked.addListener(function(tab) {
+  var maxHeight = window.screen.availHeight-50;
+  var height = maxHeight < 600 ? maxHeight : 600;
+  chrome.windows.create({url:'popup.html', height: height, width: 800, type: 'panel'}, (window)=>{
+    setTimeout(()=>{
+      chrome.tabs.sendMessage(
+        tab.id, {
+          method: 'getSelection'
+        });
+    }, 1500);
+  });
+
 });

@@ -166,6 +166,31 @@ const SerumApp = React.createClass({
   // ======================================================== LIFECYCLE
   componentDidMount: function() {
 
+    chrome.runtime.onMessage.addListener(
+      function(data){
+
+        const today = new moment();
+        const date = today.format('YYYY-MM-DD');
+        const time = today.format('HH:mm');
+
+        const extension = this.state.configExtension;
+        const filename = PostFormatter.formatFilename(data.title, date, extension);
+        const content = PostFormatter.processTemplate(this.state.configTemplate, data.title, date, time, data.url, data.quote);
+
+            this.setState({
+              postQuote: data.quote,
+              postTitle: data.title,
+              postUrl: data.url,
+              postDate: date,
+              postTime: time,
+              postFilename: filename,
+              postContent: content,
+              postDirectory: this.state.configDraftsDir,
+              windowHeight: data.height
+            });
+
+      }.bind(this));
+
     chrome.storage.sync.get({
       gitUser: '',
       gitRepo: '',
@@ -189,40 +214,7 @@ const SerumApp = React.createClass({
         });
       }.bind(this));
 
-    // [todo] - how do I ensure that this won't happen until after config has been loaded (without nesting?)
-    // [todo] - how to handle if there is no valid config?
-    chrome.tabs.query({
-      active: true, currentWindow: true
-    }, function(tabs) {
 
-      chrome.tabs.sendMessage(tabs[0].id, {
-        method: 'getSelection'
-      }, function(response) {
-
-        const today = new moment();
-        const date = today.format('YYYY-MM-DD');
-        const time = today.format('HH:mm');
-
-        const extension = this.state.configExtension;
-
-        const filename = PostFormatter.formatFilename(response.title, date, extension);
-        const content = PostFormatter.processTemplate(this.state.configTemplate, response.title, date, time, response.url, response.quote);
-
-        this.setState({
-          postQuote: response.quote,
-          postTitle: response.title,
-          postUrl: response.url,
-          postDate: date,
-          postTime: time,
-          postFilename: filename,
-          postContent: content,
-          postDirectory: this.state.configDraftsDir,
-          windowHeight: response.height
-        });
-
-      }.bind(this));
-
-    }.bind(this));
   }
 
 });

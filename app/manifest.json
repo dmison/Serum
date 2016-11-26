@@ -19,8 +19,7 @@
             "19": "images/test_tube.png",
             "38": "images/test_tube.png"
         },
-        "default_title": "Serum",
-        "default_popup": "popup.html"
+        "default_title": "Serum"
     },
     "options_page": "options.html",
     "content_scripts": [
