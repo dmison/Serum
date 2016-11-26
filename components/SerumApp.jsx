@@ -35,7 +35,7 @@ class SerumApp extends React.Component {
       configExtension: 'markdown',
       configToken: '',
       configTemplate: DefaultTemplate,
-      windowHeight: 800,
+      windowHeight: 600,
       status: '',
       statusMessage: ''
     };
@@ -54,6 +54,11 @@ class SerumApp extends React.Component {
   }
 
   componentDidMount() {
+
+    window.onresize = () => {
+      this.setState( { windowHeight: window.outerHeight });
+    };
+
     chrome.runtime.onMessage.addListener(function(data) {
       const today = new moment();
       const date = today.format('YYYY-MM-DD');
@@ -70,7 +75,7 @@ class SerumApp extends React.Component {
       postFilename: filename,
       postContent: content,
       postDirectory: this.state.configDraftsDir,
-      windowHeight: data.height
+      windowHeight: window.outerHeight
       });
     }.bind(this));
 

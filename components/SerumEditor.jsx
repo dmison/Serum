@@ -6,11 +6,6 @@ import 'brace/theme/github';
 
 const SerumEditor = (props)=>{
 
-  var height = 450;
-  if(props.parentHeight < 650){
-    height = props.parentHeight - 150;
-  }
-
   return (
     <AceEditor
       mode='markdown'
@@ -20,7 +15,7 @@ const SerumEditor = (props)=>{
       editorProps={{$blockScrolling: true}}
       wrapEnabled={true}
       width='auto'
-      height={''+height+'px'}
+      height={''+props.parentHeight - 150+'px'}
       />
   );
 
