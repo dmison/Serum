@@ -107,7 +107,7 @@ class SerumApp extends React.Component {
       return (<div><SerumPopupError/></div>);
     } else {
       return (
-        <div>
+        <div className='container'>
           <SerumEditor content={this.state.postContent} onChange={this.setContent} parentHeight={this.state.windowHeight}/>
           <div className="form-group controls">
             <div className="row">
@@ -124,8 +124,10 @@ class SerumApp extends React.Component {
             </div>
           </div>
           <div className="row controls statusView">
-            <SerumPostStatus status={this.state.status} message={this.state.statusMessage}/>
-            <button className='btn btn-info btn-md post-button' onClick={this.postArticle}>Post</button>
+            <div className="col-xs-10">
+              <SerumPostStatus status={this.state.status} message={this.state.statusMessage}/>
+            </div>
+            <button className='col-xs-2 btn btn-info btn-md post-button' onClick={this.postArticle}>Post</button>
           </div>
         </div>
       );
